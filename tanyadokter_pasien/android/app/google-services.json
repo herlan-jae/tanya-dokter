@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "617393670869",
+    "project_id": "tanya-dokter-c4909",
+    "storage_bucket": "tanya-dokter-c4909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617393670869:android:a2ea02b027e3355752b05c",
+        "android_client_info": {
+          "package_name": "com.tanyadokter.pasien"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk5SR8HattDqH8g4_EGCY46HMK2r5yN0o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
