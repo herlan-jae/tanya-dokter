@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_pasien/features/profile/ui/account_screen.dart';
+import 'package:tanyadokter_pasien/features/profile/ui/profile_screen.dart';
 import 'package:tanyadokter_pasien/features/consultation/ui/consultation_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
-import 'package:tanyadokter_pasien/features/home/home_screen.dart';
+import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
 
 class RootScreen extends StatefulWidget {
   static const routeName = '/root';
@@ -21,7 +21,7 @@ class _RootScreenState extends State<RootScreen> {
         const HomeScreen(),
         const ExploreScreen(),
         const HistoryScreen(),
-        const AccountScreen(),
+        const ProfileScreen(),
       ][currentScreenIndex],
       bottomNavigationBar: NavigationBar(
         indicatorColor: Colors.blue,

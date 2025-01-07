@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_dokter/feature/consultation/widget/queue_card.dart';
+import 'package:tanyadokter_dokter/features/consultation/widget/queue_card.dart';
 
 class ConsultationScreen extends StatelessWidget {
   static const routeName = '/ConsultationScreen';

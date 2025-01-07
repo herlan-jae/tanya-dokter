@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_dokter/feature/profile/widget/profile_form.dart';
+import 'package:tanyadokter_dokter/features/profile/widget/profile_form.dart';
 
 class ProfileSettingScreen extends StatelessWidget {
   static const routeName = '/profile-settings';

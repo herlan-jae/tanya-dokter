@@ -2,6 +2,8 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_pasien/app/session_helper.dart';
 
+import '../widget/main_banner.dart';
+
 List<Image> bannerImage = [
   Image.network(
     'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg',

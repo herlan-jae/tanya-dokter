@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_dokter/feature/consultation/widget/prescription_field.dart';
+import 'package:tanyadokter_dokter/features/consultation/widget/prescription_field.dart';
 
 class PrescriptionScreen extends StatefulWidget {
   static const routeName = '/Prescription';

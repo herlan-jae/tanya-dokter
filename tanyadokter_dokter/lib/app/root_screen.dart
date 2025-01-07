@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_dokter/feature/consultation/ui/consultation_screen.dart';
-import 'package:tanyadokter_dokter/feature/dashboard/ui/home_screen.dart';
-import 'package:tanyadokter_dokter/feature/history/ui/history_screen.dart';
-import 'package:tanyadokter_dokter/feature/profile/ui/profile_screen.dart';
+import 'package:tanyadokter_dokter/features/consultation/ui/consultation_screen.dart';
+import 'package:tanyadokter_dokter/features/dashboard/ui/home_screen.dart';
+import 'package:tanyadokter_dokter/features/history/ui/history_screen.dart';
+import 'package:tanyadokter_dokter/features/profile/ui/profile_screen.dart';
 
 class RootScreen extends StatefulWidget {
   static const routeName = '/root';
@@ -13,7 +13,7 @@ class RootScreen extends StatefulWidget {
 }
 
 class _RootScreenState extends State<RootScreen> {
-  int currentScreenIndex = 3;
+  int currentScreenIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

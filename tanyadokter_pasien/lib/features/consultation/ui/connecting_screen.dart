@@ -20,7 +20,7 @@ class ConnectingScreen extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/ChatSession');
+                Navigator.of(context).pushNamed('/chat');
               },
               icon: const Icon(Icons.arrow_forward_rounded),
             ),

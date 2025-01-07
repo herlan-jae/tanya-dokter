@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_pasien/core/assets/assets_manager.dart';
-
+import 'package:tanyadokter_pasien/core/constant/assets_manager.dart';
 class PrescriptionScreen extends StatefulWidget {
   static const routeName = '/Prescription';
 
@@ -62,7 +61,6 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                                   'https://via.placeholder.com/150'),
                             ),
                           ),
-
                         ],
                       ),
                       const SizedBox(width: 24.0),
@@ -104,7 +102,8 @@ class _PrescriptionScreenState extends State<PrescriptionScreen> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 12.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
