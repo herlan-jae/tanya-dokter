@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_pasien/features/profile/ui/profile_screen.dart';
-import 'package:tanyadokter_pasien/features/consultation/ui/consultation_screen.dart';
+import 'package:tanyadokter_pasien/features/category_list/views/ui/category_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
 
@@ -19,7 +19,7 @@ class _RootScreenState extends State<RootScreen> {
     return Scaffold(
       body: <Widget>[
         const HomeScreen(),
-        const ExploreScreen(),
+        const CategoryScreen(),
         const HistoryScreen(),
         const ProfileScreen(),
       ][currentScreenIndex],

@@ -1,30 +1,72 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_pasien/features/consultation/widget/doctor_card.dart';
+import 'package:tanyadokter_pasien/core/widget/alert_dialog_widget.dart';
 
-class DoctorList extends StatefulWidget {
-  static const routeName = '/DoctorList';
+import 'package:tanyadokter_pasien/features/doctor/data/doctor_model.dart';
+import 'package:tanyadokter_pasien/features/doctor/views/widget/doctor_card.dart';
+import 'package:tanyadokter_pasien/features/doctor/views/widget/doctor_profile.dart';
+import 'package:tanyadokter_pasien/features/payment/views/ui/payment_screen.dart';
 
-  const DoctorList({super.key});
+class DoctorListScreen extends StatelessWidget {
+  static const routeName = '/doctor-list';
+  final List<DoctorModel> doctors;
+  final String categoryName;
 
-  @override
-  State<DoctorList> createState() => _DoctorListState();
-}
+  const DoctorListScreen({
+    super.key,
+    required this.doctors,
+    required this.categoryName,
+  });
 
-class _DoctorListState extends State<DoctorList> {
-  final TextEditingController _searchController = TextEditingController();
+  void showDoctorDetail(BuildContext context, DoctorModel doctor) {
+    if (doctor.status) {
+      showDialog(
+        context: context,
+        builder: (context) => ShowDoctorProfile(
+          name: doctor.name,
+          category: doctor.category,
+          image: doctor.image,
+          description: doctor.description,
+          patient: doctor.patient,
+          price: doctor.price,
+          status: doctor.status,
+          paymentFunction: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PaymentScreen(
+                  name: doctor.name,
+                  category: doctor.category,
+                  image: doctor.image,
+                  price: doctor.price,
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) =>
+            AlertDialogFailed(label: 'Maaf, dokter sedang tidak aktif'),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController searchController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.arrow_back_rounded)),
-        title: const Text(
-          'Dokter Umum',
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_rounded),
+        ),
+        title: Text(
+          categoryName,
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -38,14 +80,14 @@ class _DoctorListState extends State<DoctorList> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
-                controller: _searchController,
+                controller: searchController,
                 decoration: InputDecoration(
                   hintText: 'Cari dokter',
                   prefixIcon: const Icon(Icons.search_rounded),
                   suffixIcon: IconButton(
                     icon: const Icon(Icons.clear_rounded),
                     onPressed: () {
-                      _searchController.clear();
+                      searchController.clear();
                     },
                   ),
                   border: OutlineInputBorder(
@@ -88,12 +130,21 @@ class _DoctorListState extends State<DoctorList> {
               const SizedBox(height: 12.0),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: doctors.length,
                   itemBuilder: (context, index) {
+                    final doctor = doctors[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child:
-                          DoctorCard(), // Pastikan DoctorCard sudah diimplementasikan
+                      child: DoctorCard(
+                        name: doctor.name,
+                        category: doctor.category,
+                        image: doctor.image,
+                        patient: doctor.patient,
+                        price: doctor.price,
+                        rating: doctor.rating,
+                        status: doctor.status,
+                        function: () => showDoctorDetail(context, doctor),
+                      ),
                     );
                   },
                 ),

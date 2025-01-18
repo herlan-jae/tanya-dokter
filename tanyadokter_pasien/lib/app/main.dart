@@ -21,14 +21,14 @@ import 'package:tanyadokter_pasien/features/auth/reset_password/ui/pin_verificat
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/reset_password_screen.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
 import 'package:tanyadokter_pasien/features/chat/data/web_socket_service.dart';
-import 'package:tanyadokter_pasien/features/chat/presentation/ui/chat_session_screen.dart';
-import 'package:tanyadokter_pasien/features/consultation/ui/connecting_screen.dart';
-import 'package:tanyadokter_pasien/features/consultation/ui/doctor_list.dart';
-import 'package:tanyadokter_pasien/features/consultation/ui/method_payment_screen.dart';
-import 'package:tanyadokter_pasien/features/consultation/ui/payment_screen.dart';
+import 'package:tanyadokter_pasien/features/chat/views/ui/chat_page.dart';
+import 'package:tanyadokter_pasien/features/consultation/connecting_screen.dart';
+import 'package:tanyadokter_pasien/features/category_list/views/ui/category_screen.dart';
+import 'package:tanyadokter_pasien/features/payment/views/ui/payment_confirmation_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/doctors_prescription.dart';
 import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
+import 'package:tanyadokter_pasien/features/payment/bloc/payment_bloc.dart';
 import 'package:tanyadokter_pasien/features/profile/ui/about_application.dart';
 import 'package:tanyadokter_pasien/features/profile/ui/delete_profile.dart';
 import 'package:tanyadokter_pasien/features/profile/ui/edit_profile.dart';
@@ -83,15 +83,19 @@ class MyApp extends StatelessWidget {
           BlocProvider<ChatBloc>(
             create: (_) => ChatBloc(webSocketService),
           ),
+          BlocProvider(
+            create: (_) => PaymentBloc(),
+          ),
         ],
         child: MaterialApp(
           title: 'TanyaDokter - Pasien',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.theme(context),
           home: const LoginScreen(),
-          initialRoute: '/chat',
-          // ,
-          //isLoggedIn ? '/root' : '/login',
+          initialRoute: '/root',
+          // '/chat',
+          // '/root'
+          // isLoggedIn ? '/root' : '/login',
           routes: {
             '/root': (context) => const RootScreen(),
             '/login': (context) => LoginScreen(),
@@ -102,10 +106,9 @@ class MyApp extends StatelessWidget {
             '/dashboard': (context) => HomeScreen(),
             '/profile': (context) => ProfileScreen(),
             '/chat': (context) => ChatPage(),
-            DoctorList.routeName: (context) => const DoctorList(),
-            PaymentScreen.routeName: (context) => const PaymentScreen(),
-            MethodPaymentScreen.routeName: (context) => MethodPaymentScreen(),
-            ConnectingScreen.routeName: (context) => ConnectingScreen(),
+            '/connect': (context) => ConnectingScreen(),
+            '/category': (context) => CategoryScreen(),
+            '/payment-confirm': (context) => PaymentConfirmScreen(),
             ProfileSettingsScreen.routeName: (context) =>
                 ProfileSettingsScreen(),
             EditProfileScreen.routeName: (context) => EditProfileScreen(),

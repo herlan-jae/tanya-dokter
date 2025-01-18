@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MethodPaymentScreen extends StatelessWidget {
-  static const routeName = '/MethodPayment';
+class PaymentConfirmScreen extends StatelessWidget {
+  static const routeName = '/payment-confirm';
 
-  const MethodPaymentScreen({super.key});
+  const PaymentConfirmScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class MethodPaymentScreen extends StatelessWidget {
             },
             icon: const Icon(Icons.arrow_back_rounded)),
         title: const Text(
-          'Metode Pembayaran',
+          'Konfirmasi Pembayaran',
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -52,7 +52,7 @@ class MethodPaymentScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 12.0),
                       Text(
-                        '30 Okt 2024 - 17:52:15 WIB',
+                        '${DateTime.now()}',
                         style: TextStyle(
                           fontSize: 15.0,
                           fontWeight: FontWeight.bold,
@@ -126,7 +126,17 @@ class MethodPaymentScreen extends StatelessWidget {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Nomor Virtual Account berhasil disalin!',
+                                    ),
+                                    behavior: SnackBarBehavior.floating,
+                                    duration: Duration(seconds: 1),
+                                  ),
+                                );
+                              },
                               child: Icon(
                                 Icons.copy,
                                 size: 18.0,
@@ -162,7 +172,17 @@ class MethodPaymentScreen extends StatelessWidget {
                               ),
                             ),
                             InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'Nominal berhasil disalin!',
+                                    ),
+                                    behavior: SnackBarBehavior.floating,
+                                    duration: Duration(seconds: 1),
+                                  ),
+                                );
+                              },
                               child: Icon(
                                 Icons.copy,
                                 size: 18.0,
@@ -190,10 +210,10 @@ class MethodPaymentScreen extends StatelessWidget {
             minimumSize: Size(370.0, 30.0),
           ),
           onPressed: () {
-            Navigator.of(context).pushNamed('/ConnectingScreen');
+            Navigator.of(context).pushNamed('/connect');
           },
           child: Text(
-            'Konfirmasi & Bayar',
+            'Konfirmasi Pembayaran',
             style: TextStyle(
               fontSize: 13.0,
               fontWeight: FontWeight.bold,

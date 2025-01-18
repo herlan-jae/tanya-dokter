@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_pasien/features/consultation/ui/payment_screen.dart';
 
 class ShowDoctorProfile extends StatelessWidget {
-  const ShowDoctorProfile({super.key});
+  final String name;
+  final String category;
+  final String image;
+  final String description;
+  final int patient;
+  final String price;
+  final bool status;
+  final Function paymentFunction;
+
+  const ShowDoctorProfile({
+    super.key,
+    required this.name,
+    required this.category,
+    required this.image,
+    required this.description,
+    required this.patient,
+    required this.price,
+    required this.status,
+    required this.paymentFunction,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +44,7 @@ class ShowDoctorProfile extends StatelessWidget {
                   ),
                   child: CircleAvatar(
                     radius: 36,
-                    backgroundImage:
-                        NetworkImage('https://via.placeholder.com/150'),
+                    backgroundImage: NetworkImage(image),
                   ),
                 ),
                 // Status Online
@@ -36,14 +53,14 @@ class ShowDoctorProfile extends StatelessWidget {
                   right: 5,
                   child: CircleAvatar(
                     radius: 8,
-                    backgroundColor: Colors.green,
+                    backgroundColor: status ? Colors.green : Colors.red,
                   ),
                 ),
               ],
             ),
             SizedBox(height: 12.0),
             Text(
-              'dr. Waleed Abu Kareem, S.um',
+              name,
               style: TextStyle(
                 fontSize: 14.0,
                 fontWeight: FontWeight.bold,
@@ -51,14 +68,14 @@ class ShowDoctorProfile extends StatelessWidget {
             ),
             SizedBox(height: 8.0),
             Text(
-              'Dokter Umum',
+              category,
               style: TextStyle(
                 fontSize: 12.0,
               ),
             ),
             SizedBox(height: 8.0),
             Text(
-              'Memiliki 15 tahun pengalaman dalam melayani pasien dengan keluhan umum, memberikan vaksinasi, memberikan diagnosis, pengobatan, prosedur medis dasar, dan melakukan program kesehatan masyarakat',
+              description,
               style: TextStyle(
                 fontSize: 11.0,
               ),
@@ -89,24 +106,21 @@ class ShowDoctorProfile extends StatelessWidget {
                 ),
                 SizedBox(width: 6.0),
                 Expanded(
-                  child: ElevatedButton.icon(
-                    icon: Icon(Icons.chat, size: 12.0),
-                    label: Text(
-                      'Konsultasi',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                  child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 0.0,
                       backgroundColor: Color(0xFF116487),
                       foregroundColor: Color(0xFFDDF2FF),
                       minimumSize: Size(142.0, 30.0),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(PaymentScreen.routeName);
-                    },
+                    onPressed: () => paymentFunction(),
+                    child: Text(
+                      'Konsultasi',
+                      style: TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 )
               ],

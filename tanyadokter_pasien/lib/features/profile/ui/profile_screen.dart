@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tanyadokter_pasien/app/session_helper.dart';
 import 'package:tanyadokter_pasien/features/auth/login/bloc/login_bloc.dart';
 import 'package:tanyadokter_pasien/features/auth/login/bloc/login_event.dart';
 import 'package:tanyadokter_pasien/features/auth/login/bloc/login_state.dart';
@@ -8,6 +9,11 @@ class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
 
   const ProfileScreen({super.key});
+
+  Future<String> getUserName() async {
+    final session = await SessionHelper.getUserSession();
+    return session["fullname"] ?? "Guest";
+  }
 
   @override
   Widget build(BuildContext context) {
