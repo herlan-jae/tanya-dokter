@@ -1,14 +1,21 @@
-import 'package:equatable/equatable.dart';
+abstract class ChatState {}
 
-class ChatState extends Equatable {
-  final List<String> messages;
+class ChatInitial extends ChatState {}
 
-  const ChatState({this.messages = const []});
+class ChatConnecting extends ChatState {}
 
-  ChatState copyWith({List<String>? messages}) {
-    return ChatState(messages: messages ?? this.messages);
-  }
+class ChatConnected extends ChatState {}
 
-  @override
-  List<Object?> get props => [messages];
+class ChatMessageSent extends ChatState {}
+
+class ChatMessageReceived extends ChatState {
+  final String message;
+
+  ChatMessageReceived(this.message);
+}
+
+class ChatError extends ChatState {
+  final String error;
+
+  ChatError(this.error);
 }

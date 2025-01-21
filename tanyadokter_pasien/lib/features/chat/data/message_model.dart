@@ -3,7 +3,7 @@ class Message {
   final String receiverId;
   final String message;
   final int status;
-  final int timestamp;
+  final String timestamp;
 
   Message({
     required this.senderId,

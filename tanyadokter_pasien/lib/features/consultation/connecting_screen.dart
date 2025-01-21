@@ -1,6 +1,5 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_pasien/app/session_helper.dart';
 
 class ConnectingScreen extends StatelessWidget {
   static const routeName = '/connect';
@@ -21,15 +20,10 @@ class ConnectingScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              final senderId = SessionHelper.getUserSession();
-              String receiverId = '5';
               Navigator.pushNamed(
                 context,
                 '/chat',
-                arguments: {
-                  'senderId': senderId,
-                  'receiverId': receiverId,
-                },
+                arguments: {'receiver_id': '5'},
               );
             },
             icon: const Icon(Icons.arrow_forward_rounded),

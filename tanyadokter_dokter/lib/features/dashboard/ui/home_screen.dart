@@ -47,23 +47,19 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 8.0),
                     const MainBanner(
                       title: 'Atur antrian konsultasi pasien',
-                      image:
-                          'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg',
+                      image: 'assets/images/antrian.png',
                     ),
                     const MainBanner(
-                      title: 'Dapatkan resep obat langsung',
-                      image:
-                          'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg',
+                      title: 'Konsultasi online',
+                      image: 'assets/images/konsultasi.png',
                     ),
                     const MainBanner(
-                      title: 'Dapatkan resep obat langsung',
-                      image:
-                          'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg',
+                      title: 'Cek riwayat pasien',
+                      image: 'assets/images/riwayat.png',
                     ),
                     const MainBanner(
-                      title: 'Dapatkan resep obat langsung',
-                      image:
-                          'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg',
+                      title: 'Kelola resep obat',
+                      image: 'assets/images/resep.png',
                     ),
                   ],
                 ),

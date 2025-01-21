@@ -1,23 +1,15 @@
-import 'package:equatable/equatable.dart';
+abstract class ChatEvent {}
 
-abstract class ChatEvent extends Equatable {
-  const ChatEvent();
-}
+class ConnectWebSocket extends ChatEvent {}
 
-class MessageSent extends ChatEvent {
+class SendMessage extends ChatEvent {
   final String message;
 
-  const MessageSent(this.message);
-
-  @override
-  List<Object> get props => [message];
+  SendMessage(this.message);
 }
 
-class MessageReceived extends ChatEvent {
+class ReceiveMessage extends ChatEvent {
   final String message;
 
-  const MessageReceived(this.message);
-
-  @override
-  List<Object> get props => [message];
+  ReceiveMessage(this.message);
 }

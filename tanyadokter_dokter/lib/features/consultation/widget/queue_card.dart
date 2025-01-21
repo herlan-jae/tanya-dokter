@@ -88,7 +88,11 @@ class QueueCard extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushNamed('/ConnectingScreen');
                       },
-                      icon: const Icon(Icons.chat, size: 15.0),
+                      icon: const Icon(
+                        Icons.chat,
+                        size: 12.0,
+                        color: Colors.white,
+                      ),
                       label: const Text(
                         'Mulai Chat',
                         style: TextStyle(
@@ -110,10 +114,12 @@ class QueueCard extends StatelessWidget {
                   const SizedBox(width: 12.0),
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () {
-
-                      },
-                      icon: const Icon(Icons.hourglass_top_rounded, size: 15.0),
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.hourglass_top_rounded,
+                        size: 12.0,
+                        color: Colors.white,
+                      ),
                       label: const Text(
                         'Tunda',
                         style: TextStyle(

@@ -53,14 +53,14 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.theme(context),
           home: const RootScreen(),
-          initialRoute: isLoggedIn ? '/root' : '/login',
+          initialRoute: '/root',
+          // isLoggedIn ? '/root' : '/login'
           routes: {
             '/root': (context) => const RootScreen(),
             '/login': (context) => const LoginScreen(),
             '/home': (context) => const HomeScreen(),
             '/profile': (context) => const ProfileScreen(),
-            ConsultationScreen.routeName: (context) =>
-                const ConsultationScreen(),
+            '/consultation': (context) => const ConsultationScreen(),
             ConnectingScreen.routeName: (context) => const ConnectingScreen(),
             ChatSessionScreen.routeName: (context) => const ChatSessionScreen(),
             PrescriptionScreen.routeName: (context) =>

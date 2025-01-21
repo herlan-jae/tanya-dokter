@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:tanyadokter_dokter/features/consultation/widget/queue_card.dart';
 
 class ConsultationScreen extends StatelessWidget {
-  static const routeName = '/ConsultationScreen';
+  static const routeName = '/consultation';
   const ConsultationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         title: const Text(
           'Antrian Konsultasi Pasien',
@@ -34,5 +35,3 @@ class ConsultationScreen extends StatelessWidget {
     );
   }
 }
-
-
