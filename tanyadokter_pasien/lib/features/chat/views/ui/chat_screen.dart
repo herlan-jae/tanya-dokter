@@ -1,253 +1,155 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tanyadokter_pasien/app/session_helper.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_event.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_state.dart';
-import 'package:tanyadokter_pasien/features/chat/data/message_model.dart';
-import 'package:tanyadokter_pasien/features/chat/views/widget/chat_bubble.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 
-class ChatPage extends StatefulWidget {
+class ChatScreen extends StatefulWidget {
   static const routeName = '/chat';
+  final String userId;
   final String receiverId;
+  final bool isDoctor;
 
-  const ChatPage({super.key, required this.receiverId});
+  const ChatScreen({
+    super.key,
+    required this.userId,
+    required this.receiverId,
+    required this.isDoctor,
+  });
 
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
-  late WebSocketChannel _channel;
-  final List<Message> _messages = [];
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    _initializeWebSocket();
+    context.read<ChatBloc>().add(
+          ConnectToChat(
+            userId: widget.userId,
+            isDoctor: widget.isDoctor,
+          ),
+        );
   }
 
-  void _initializeWebSocket() async {
-    final session = await SessionHelper.getUserSession();
-    final userId = session['user_id'];
-
-    if (userId != null) {
-      _channel = await connectWebSocket(widget.receiverId);
-    } else {
-      print('User ID tidak ditemukan');
-      // Tampilkan pesan error atau navigasikan ke halaman login jika perlu
-    }
+  @override
+  void dispose() {
+    _messageController.dispose();
+    _scrollController.dispose();
+    context.read<ChatBloc>().add(DisconnectFromChat());
+    super.dispose();
   }
 
-  Future<WebSocketChannel> connectWebSocket(String receiverId) async {
-    final session = await SessionHelper.getUserSession();
-    final userId = session["user_id"];
-
-    if (userId == null) {
-      print('User ID tidak ditemukan');
-      throw Exception("User ID tidak ditemukan");
+  void _sendMessage() {
+    if (_messageController.text.trim().isNotEmpty) {
+      context.read<ChatBloc>().add(
+            SendMessage(
+                message: _messageController.text.trim(),
+                receiverId: widget.receiverId),
+          );
+      _messageController.clear();
     }
-
-    final url =
-        'wss://tanya-dokter-api.fakhrurcodes.my.id/v1/chat/ws/$userId/$receiverId';
-    return WebSocketChannel.connect(Uri.parse(url));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 70,
-        foregroundColor: Colors.white,
-        toolbarHeight: 80.0,
-        backgroundColor: const Color(0xFF116487),
-        leading: InkWell(
-          onTap: () => Navigator.of(context).pop(),
-          child: Row(
-            children: [
-              const SizedBox(width: 4.0),
-              const Icon(Icons.arrow_back_rounded),
-              Stack(
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 2,
-                      ),
-                    ),
-                    child: const CircleAvatar(),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'dr. Waleed Abu Kareem, S.um',
-              style: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'Dokter Umum',
-              style: TextStyle(
-                fontSize: 11.0,
-              ),
-            ),
-          ],
-        ),
+        title: Text(widget.isDoctor ? 'Chat with Patient' : 'Chat with Doctor'),
       ),
-      body: FutureBuilder<Map<String, dynamic>>(
-        future: SessionHelper.getUserSession(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            print('${snapshot.error}');
-            return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data == null) {
-            return Center(child: Text('User ID not found'));
-          } else {
+      body: BlocBuilder<ChatBloc, ChatState>(
+        builder: (context, state) {
+          if (state is ChatInitial) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          if (state is ChatError) {
+            return Center(child: Text('Error: ${state.error}'));
+          }
+
+          if (state is ChatConnected) {
             return Column(
               children: [
                 Expanded(
-                  child: BlocBuilder<ChatBloc, ChatState>(
-                    builder: (context, state) {
-                      return ListView.builder(
-                        itemCount: _messages.length,
-                        itemBuilder: (context, index) {
-                          final message = _messages[index];
-                          final isSender =
-                              message.senderId == snapshot.data?["user_id"];
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    padding: const EdgeInsets.all(8),
+                    itemCount: state.messages.length,
+                    itemBuilder: (context, index) {
+                      final message = state.messages[index];
+                      final isMyMessage = message.senderId == widget.userId;
 
-                          return ChatBubble(
-                            message: message.message,
-                            isSender: isSender,
-                          );
-                        },
+                      return Align(
+                        alignment: isMyMessage
+                            ? Alignment.centerRight
+                            : Alignment.centerLeft,
+                        child: Container(
+                          margin: const EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 8,
+                          ),
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: isMyMessage
+                                ? Colors.blue[100]
+                                : Colors.grey[300],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: isMyMessage
+                                ? CrossAxisAlignment.end
+                                : CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                message.message,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                message.timestamp.toString(),
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   ),
                 ),
-                SafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16.0, vertical: 8.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _messageController,
-                            style: const TextStyle(fontSize: 11.0),
-                            decoration: InputDecoration(
-                              hintText: 'Ketik pesan...',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.grey,
-                                  width: 1.0,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(50.0),
-                                borderSide: const BorderSide(
-                                  color: Colors.blue,
-                                  width: 2.0,
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 20.0,
-                                vertical: 15.0,
-                              ),
-                            ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: _messageController,
+                          decoration: const InputDecoration(
+                            hintText: 'Type a message...',
+                            border: OutlineInputBorder(),
                           ),
+                          onSubmitted: (_) => _sendMessage(),
                         ),
-                        const SizedBox(width: 8.0),
-                        IconButton(
-                          onPressed: () async {
-                            final message = _messageController.text;
-                            if (message.isNotEmpty) {
-                              final session =
-                                  await SessionHelper.getUserSession();
-                              final userId = session["user_id"];
-
-                              if (userId == null) {
-                                // Tampilkan pesan error atau notifikasi kepada pengguna
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      title: Text('Error'),
-                                      content: Text(
-                                          'User ID tidak ditemukan. Silakan coba lagi.'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: Text('OK'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                                return; // Keluarkan dari fungsi jika userId tidak ditemukan
-                              }
-
-                              final receiverId = widget.receiverId;
-                              final timestamp =
-                                  DateTime.now().toIso8601String();
-
-                              context
-                                  .read<ChatBloc>()
-                                  .add(SendMessage(message));
-
-                              _messages.add(Message(
-                                senderId: userId,
-                                receiverId: receiverId,
-                                message: message,
-                                status: 1,
-                                timestamp: timestamp,
-                              ));
-
-                              _messageController.clear();
-                              setState(() {});
-                            }
-                          },
-                          icon: const Icon(
-                            Icons.send_rounded,
-                            color: Color(0xFF086E96),
-                            size: 30.0,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.send),
+                        onPressed: _sendMessage,
+                      ),
+                    ],
                   ),
                 ),
               ],
             );
           }
+
+          return const SizedBox.shrink();
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _channel.sink.close();
-    super.dispose();
   }
 }

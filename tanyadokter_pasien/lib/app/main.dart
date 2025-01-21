@@ -20,8 +20,8 @@ import 'package:tanyadokter_pasien/features/auth/reset_password/ui/forgot_passwo
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/pin_verification_screen.dart';
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/reset_password_screen.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
+import 'package:tanyadokter_pasien/features/chat/data/chat_repository.dart';
 import 'package:tanyadokter_pasien/features/chat/data/web_socket_service.dart';
-import 'package:tanyadokter_pasien/features/chat/views/ui/chat_screen.dart';
 import 'package:tanyadokter_pasien/features/consultation/connecting_screen.dart';
 import 'package:tanyadokter_pasien/features/category_list/views/ui/category_screen.dart';
 import 'package:tanyadokter_pasien/features/payment/views/ui/payment_confirmation_screen.dart';
@@ -38,24 +38,20 @@ import 'package:tanyadokter_pasien/features/profile/ui/profile_settings_screen.d
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final session = await SessionHelper.getUserSession();
-  final webSocketService = WebSocketService(
-      'wss://tanya-dokter-api.fakhrurcodes.my.id/v1/chat/ws/senderId/receiverId');
+
   runApp(
     MyApp(
       isLoggedIn: session["token"] != null,
-      webSocketService: webSocketService,
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
   final bool isLoggedIn;
-  final WebSocketService webSocketService;
 
   const MyApp({
     super.key,
     required this.isLoggedIn,
-    required this.webSocketService,
   });
 
   @override
@@ -66,6 +62,11 @@ class MyApp extends StatelessWidget {
     final registerApiService = RegisterApiService();
     final registerRepository = RegisterRepository(registerApiService);
     final resetPasswordApiService = ResetPasswordApiService(dio);
+    final chatRepository = ChatRepository(
+      wsUrl:
+          'wss://tanya-dokter-api.fakhrurcodes.my.id/v1/chat/ws/senderId/receiverId',
+      token: 'user-auth-token',
+    );
 
     return MultiRepositoryProvider(
       providers: [
@@ -73,6 +74,7 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(create: (_) => loginRepository),
         RepositoryProvider(create: (_) => registerApiService),
         RepositoryProvider(create: (_) => registerRepository),
+        RepositoryProvider(create: (_) => chatRepository),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -88,15 +90,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (_) => ResetPasswordBloc(resetPasswordApiService),
           ),
-          BlocProvider<ChatBloc>(
-            create: (_) => ChatBloc(webSocketService),
-          ),
           BlocProvider(
             create: (_) => PaymentBloc(),
           ),
-          BlocProvider(
-            create: (_) => ChatBloc(webSocketService),
-          ),
+          BlocProvider(create: (_) => ChatBloc(repository: chatRepository))
         ],
         child: MaterialApp(
           title: 'TanyaDokter - Pasien',
@@ -116,7 +113,7 @@ class MyApp extends StatelessWidget {
             '/reset-password': (context) => ResetEmailScreen(),
             '/dashboard': (context) => HomeScreen(),
             '/profile': (context) => ProfileScreen(),
-            '/chat': (context) => ChatPage(receiverId: '5'),
+            // '/chat': (context) => ChatPage(receiverId: '5'),
             '/connect': (context) => ConnectingScreen(),
             '/category': (context) => CategoryScreen(),
             '/payment-confirm': (context) => PaymentConfirmScreen(),

@@ -1,33 +1,79 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_event.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_state.dart';
-import 'package:tanyadokter_pasien/features/chat/data/web_socket_service.dart';
+import 'package:tanyadokter_pasien/features/chat/data/chat_repository.dart';
+import 'package:tanyadokter_pasien/features/chat/data/message_model.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  final WebSocketService webSocketService;
+  final ChatRepository _repository;
+  StreamSubscription? _chatSubscription;
+  String? _currentUserId;
+  bool? _isDoctor;
 
-  ChatBloc(this.webSocketService) : super(ChatInitial()) {
-    on<ConnectWebSocket>((event, emit) async {
-      emit(ChatConnecting());
-      try {
-        await webSocketService.connect();
-        emit(ChatConnected());
-      } catch (e) {
-        emit(ChatError(e.toString()));
-      }
-    });
+  ChatBloc({required ChatRepository repository})
+      : _repository = repository,
+        super(ChatInitial()) {
+    on<ConnectToChat>(_onConnectToChat);
+    on<SendMessage>(_onSendMessage);
+    on<MessageReceived>(_onMessageReceived);
+    on<DisconnectFromChat>(_onDisconnectFromChat);
+  }
 
-    on<SendMessage>((event, emit) async {
-      try {
-        await webSocketService.sendMessage(event.message);
-        emit(ChatMessageSent());
-      } catch (e) {
-        emit(ChatError(e.toString()));
-      }
-    });
+  void _onConnectToChat(ConnectToChat event, Emitter<ChatState> emit) {
+    try {
+      _currentUserId = event.userId;
+      _isDoctor = event.isDoctor;
+      _repository.connect();
 
-    on<ReceiveMessage>((event, emit) {
-      emit(ChatMessageReceived(event.message));
-    });
+      _chatSubscription = _repository.messages.listen(
+        (message) => add(MessageReceived(message: message)),
+        onError: (error) => emit(ChatError(error: error.toString())),
+      );
+
+      emit(ChatConnected(messages: []));
+    } catch (e) {
+      emit(ChatError(error: e.toString()));
+    }
+  }
+
+  void _onSendMessage(SendMessage event, Emitter<ChatState> emit) {
+    if (state is ChatConnected) {
+      final message = Message(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        senderId: _currentUserId!,
+        receiverId: event.receiverId,
+        message: event.message,
+        timestamp: DateTime.now(),
+        isDoctor: _isDoctor!,
+      );
+
+      _repository.sendMessage(message);
+
+      final currentMessage = (state as ChatConnected).messages;
+      emit(ChatConnected(messages: [...currentMessage, message]));
+    }
+  }
+
+  void _onMessageReceived(MessageReceived event, Emitter<ChatState> emit) {
+    if (state is ChatConnected) {
+      final currentMessage = (state as ChatConnected).messages;
+      emit(ChatConnected(messages: [...currentMessage, event.message]));
+    }
+  }
+
+  void _onDisconnectFromChat(
+      DisconnectFromChat event, Emitter<ChatState> emit) {
+    _chatSubscription?.cancel();
+    _repository.disconnect();
+    emit(ChatInitial());
+  }
+
+  @override
+  Future<void> close() {
+    _chatSubscription?.cancel();
+    _repository.disconnect();
+    return super.close();
   }
 }

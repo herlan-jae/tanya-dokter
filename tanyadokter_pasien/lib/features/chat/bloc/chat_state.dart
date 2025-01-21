@@ -1,21 +1,18 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:tanyadokter_pasien/features/chat/data/message_model.dart';
+
 abstract class ChatState {}
 
 class ChatInitial extends ChatState {}
 
-class ChatConnecting extends ChatState {}
+class ChatConnected extends ChatState {
+  final List<Message> messages;
 
-class ChatConnected extends ChatState {}
-
-class ChatMessageSent extends ChatState {}
-
-class ChatMessageReceived extends ChatState {
-  final String message;
-
-  ChatMessageReceived(this.message);
+  ChatConnected({required this.messages});
 }
 
 class ChatError extends ChatState {
   final String error;
 
-  ChatError(this.error);
+  ChatError({required this.error});
 }
