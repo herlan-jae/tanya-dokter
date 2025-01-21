@@ -2,7 +2,7 @@ class Message {
   final String id;
   final String senderId;
   final String receiverId;
-  final String message;
+  final String content;
   final DateTime timestamp;
   final bool isDoctor;
 
@@ -10,7 +10,7 @@ class Message {
     required this.id,
     required this.senderId,
     required this.receiverId,
-    required this.message,
+    required this.content,
     required this.timestamp,
     required this.isDoctor,
   });
@@ -20,7 +20,7 @@ class Message {
       id: json['id'],
       senderId: json['sender_id'],
       receiverId: json['receiver_id'],
-      message: json['message'],
+      content: json['content'],
       timestamp: DateTime.parse(json['timestamp']),
       isDoctor: json['isDoctor'],
     );
@@ -31,7 +31,7 @@ class Message {
       'id': id,
       'senderId': senderId,
       'receiverId': receiverId,
-      'message': message,
+      'content': content,
       'timestamp': timestamp.toIso8601String(),
       'isDoctor': isDoctor,
     };

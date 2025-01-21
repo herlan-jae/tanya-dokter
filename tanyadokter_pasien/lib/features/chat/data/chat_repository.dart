@@ -1,19 +1,33 @@
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tanyadokter_pasien/features/chat/data/message_model.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class ChatRepository {
   late WebSocketChannel _channel;
-  final String _wsUrl;
-  final String _token;
+  static const String _wsUrl =
+      'wss://tanya-dokter-api.fakhrurcodes.my.id/v1/chat/ws/senderId/receiverId';
 
-  ChatRepository({required String wsUrl, required String token})
-      : _wsUrl = wsUrl,
-        _token = token;
+  void connect() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final token = prefs.getString('token') ?? '';
+      final uri = Uri.parse('$_wsUrl?token=$token');
 
-  void connect() {
-    final uri = Uri.parse('$_wsUrl?token=$_token');
-    _channel = WebSocketChannel.connect(uri);
+      _channel = WebSocketChannel.connect(uri);
+      _channel.stream.handleError((error) {
+        print('WebSocket error: $error');
+        // Coba reconnect jika ada error
+        reconnect();
+      });
+    } catch (e) {
+      print('Error connecting to WebSocket: $e');
+    }
+  }
+
+  void reconnect() {
+    print('Attempting to reconnect...');
+    connect();
   }
 
   void disconnect() {
@@ -28,7 +42,14 @@ class ChatRepository {
   }
 
   void sendMessage(Message message) {
-    final encodedMessage = jsonEncode(message.toJson());
-    _channel.sink.add(encodedMessage);
+    try {
+      final encodedMessage = jsonEncode(message.toJson());
+      _channel.sink.add(encodedMessage);
+      print('Message sent: $encodedMessage');
+    } catch (e) {
+      print('Error sending message: $e');
+    }
   }
 }
+
+ //{required String userId, required String receiverId}

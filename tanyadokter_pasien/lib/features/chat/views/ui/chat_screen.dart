@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tanyadokter_pasien/app/session_helper.dart';
+import 'package:tanyadokter_pasien/core/widget/loading_widget.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_event.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_state.dart';
 
 class ChatScreen extends StatefulWidget {
   static const routeName = '/chat';
-  final String userId;
   final String receiverId;
   final bool isDoctor;
 
   const ChatScreen({
     super.key,
-    required this.userId,
     required this.receiverId,
     required this.isDoctor,
   });
@@ -24,16 +24,29 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  String? _userId;
 
   @override
   void initState() {
     super.initState();
-    context.read<ChatBloc>().add(
-          ConnectToChat(
-            userId: widget.userId,
-            isDoctor: widget.isDoctor,
-          ),
-        );
+    _initializeChat();
+  }
+
+  Future<void> _initializeChat() async {
+    final session = await SessionHelper.getUserSession();
+    setState(() {
+      _userId = session['user_id'].toString();
+    });
+
+    if (_userId != null) {
+      context.read<ChatBloc>().add(
+            ConnectToChat(
+              userId: _userId!,
+              receiverId: widget.receiverId,
+              isDoctor: widget.isDoctor,
+            ),
+          );
+    }
   }
 
   @override
@@ -48,7 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (_messageController.text.trim().isNotEmpty) {
       context.read<ChatBloc>().add(
             SendMessage(
-                message: _messageController.text.trim(),
+                content: _messageController.text.trim(),
                 receiverId: widget.receiverId),
           );
       _messageController.clear();
@@ -64,10 +77,11 @@ class _ChatScreenState extends State<ChatScreen> {
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (context, state) {
           if (state is ChatInitial) {
-            return const Center(child: CircularProgressIndicator());
+            return PageLoadingWidget();
           }
 
           if (state is ChatError) {
+            print('Error: ${state.error}');
             return Center(child: Text('Error: ${state.error}'));
           }
 
@@ -81,7 +95,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: state.messages.length,
                     itemBuilder: (context, index) {
                       final message = state.messages[index];
-                      final isMyMessage = message.senderId == widget.userId;
+                      final isMyMessage = message.senderId == _userId;
 
                       return Align(
                         alignment: isMyMessage
@@ -105,7 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 : CrossAxisAlignment.start,
                             children: [
                               Text(
-                                message.message,
+                                message.content,
                                 style: const TextStyle(fontSize: 16),
                               ),
                               Text(

@@ -6,15 +6,20 @@ abstract class ChatEvent {}
 class ConnectToChat extends ChatEvent {
   final String userId;
   final bool isDoctor;
+  final String receiverId;
 
-  ConnectToChat({required this.userId, required this.isDoctor});
+  ConnectToChat({
+    required this.userId,
+    required this.isDoctor,
+    required this.receiverId,
+  });
 }
 
 class SendMessage extends ChatEvent {
-  final Message message;
+  final String content;
   final String receiverId;
 
-  SendMessage({required this.message, required this.receiverId});
+  SendMessage({required this.content, required this.receiverId});
 }
 
 class MessageReceived extends ChatEvent {

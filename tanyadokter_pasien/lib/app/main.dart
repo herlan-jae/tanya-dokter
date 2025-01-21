@@ -21,7 +21,6 @@ import 'package:tanyadokter_pasien/features/auth/reset_password/ui/pin_verificat
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/reset_password_screen.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
 import 'package:tanyadokter_pasien/features/chat/data/chat_repository.dart';
-import 'package:tanyadokter_pasien/features/chat/data/web_socket_service.dart';
 import 'package:tanyadokter_pasien/features/consultation/connecting_screen.dart';
 import 'package:tanyadokter_pasien/features/category_list/views/ui/category_screen.dart';
 import 'package:tanyadokter_pasien/features/payment/views/ui/payment_confirmation_screen.dart';
@@ -62,11 +61,7 @@ class MyApp extends StatelessWidget {
     final registerApiService = RegisterApiService();
     final registerRepository = RegisterRepository(registerApiService);
     final resetPasswordApiService = ResetPasswordApiService(dio);
-    final chatRepository = ChatRepository(
-      wsUrl:
-          'wss://tanya-dokter-api.fakhrurcodes.my.id/v1/chat/ws/senderId/receiverId',
-      token: 'user-auth-token',
-    );
+    final chatRepository = ChatRepository();
 
     return MultiRepositoryProvider(
       providers: [

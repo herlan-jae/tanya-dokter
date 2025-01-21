@@ -1,5 +1,6 @@
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
+import 'package:tanyadokter_pasien/features/chat/views/ui/chat_screen.dart';
 
 class ConnectingScreen extends StatelessWidget {
   static const routeName = '/connect';
@@ -20,10 +21,14 @@ class ConnectingScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              Navigator.pushNamed(
+              Navigator.push(
                 context,
-                '/chat',
-                arguments: {'receiver_id': '5'},
+                MaterialPageRoute(
+                  builder: (context) => ChatScreen(
+                    receiverId: '5',
+                    isDoctor: false,
+                  ),
+                ),
               );
             },
             icon: const Icon(Icons.arrow_forward_rounded),

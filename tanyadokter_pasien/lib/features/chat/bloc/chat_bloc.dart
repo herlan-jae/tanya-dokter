@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_event.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_state.dart';
@@ -8,7 +7,7 @@ import 'package:tanyadokter_pasien/features/chat/data/message_model.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository _repository;
-  StreamSubscription? _chatSubscription;
+  StreamSubscription<Message>? _chatSubscription;
   String? _currentUserId;
   bool? _isDoctor;
 
@@ -21,19 +20,30 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<DisconnectFromChat>(_onDisconnectFromChat);
   }
 
-  void _onConnectToChat(ConnectToChat event, Emitter<ChatState> emit) {
+  void _onConnectToChat(
+    ConnectToChat event,
+    Emitter<ChatState> emit,
+  ) async {
+    print('Connecting to chat with userId: ${event.userId}');
     try {
       _currentUserId = event.userId;
       _isDoctor = event.isDoctor;
       _repository.connect();
 
       _chatSubscription = _repository.messages.listen(
-        (message) => add(MessageReceived(message: message)),
-        onError: (error) => emit(ChatError(error: error.toString())),
+        (message) {
+          print('Message received: ${message.content}');
+          add(MessageReceived(message: message));
+        },
+        onError: (error) {
+          print('Error in message stream: $error');
+          emit(ChatError(error: 'Error receiving message: $error'));
+        },
       );
 
       emit(ChatConnected(messages: []));
     } catch (e) {
+      print('Error connecting to chat: $e');
       emit(ChatError(error: e.toString()));
     }
   }
@@ -44,22 +54,26 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         senderId: _currentUserId!,
         receiverId: event.receiverId,
-        message: event.message,
+        content: event.content,
         timestamp: DateTime.now(),
         isDoctor: _isDoctor!,
       );
 
-      _repository.sendMessage(message);
-
-      final currentMessage = (state as ChatConnected).messages;
-      emit(ChatConnected(messages: [...currentMessage, message]));
+      try {
+        _repository.sendMessage(message);
+        final currentMessage = (state as ChatConnected).messages;
+        emit(ChatConnected(messages: [...currentMessage, message]));
+      } catch (e) {
+        emit(ChatError(error: 'Failed to send message: $e'));
+        print('Error: $e');
+      }
     }
   }
 
   void _onMessageReceived(MessageReceived event, Emitter<ChatState> emit) {
     if (state is ChatConnected) {
-      final currentMessage = (state as ChatConnected).messages;
-      emit(ChatConnected(messages: [...currentMessage, event.message]));
+      final currentMessages = (state as ChatConnected).messages;
+      emit(ChatConnected(messages: [...currentMessages, event.message]));
     }
   }
 

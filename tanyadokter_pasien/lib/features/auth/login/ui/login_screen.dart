@@ -181,34 +181,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 12.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(child: Divider(color: Colors.grey)),
-                      const SizedBox(width: 8.0),
-                      const Text('Atau'),
-                      const SizedBox(width: 8.0),
-                      Expanded(child: Divider(color: Colors.grey)),
-                    ],
-                  ),
-                  const SizedBox(height: 12.0),
-                  ElevatedButton.icon(
-                    onPressed: () =>
-                        Navigator.of(context).pushReplacementNamed('/root'),
-                    icon: const Icon(Icons.circle),
-                    label: const Text('Masuk dengan Google'),
-                    style: ElevatedButton.styleFrom(
-                      elevation: 4.0,
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.black,
-                      minimumSize: const Size(double.infinity, 40.0),
-                      side: const BorderSide(color: Colors.grey),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12.0),
                   Align(
                     alignment: Alignment.center,
                     child: Row(
