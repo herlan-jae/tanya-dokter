@@ -134,19 +134,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           keyboardType: TextInputType.visiblePassword,
                           textInputAction: TextInputAction.done,
                           decoration: InputDecoration(
-                              suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() => obsecureText = !obsecureText);
-                                },
-                                icon: Icon(
-                                  obsecureText
-                                      ? Ionicons.eye_off_outline
-                                      : Ionicons.eye_outline,
-                                ),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() => obsecureText = !obsecureText);
+                              },
+                              icon: Icon(
+                                obsecureText
+                                    ? Ionicons.eye_off_outline
+                                    : Ionicons.eye_outline,
                               ),
-                              hintText: 'Masukkan password',
-                              hintStyle: const TextStyle(
-                                  fontSize: 11.0, color: Colors.grey)),
+                            ),
+                            hintText: 'Masukkan password',
+                            hintStyle: const TextStyle(
+                                fontSize: 11.0, color: Colors.grey),
+                          ),
                           style: TextStyle(fontSize: 11.0),
                           obscureText: obsecureText,
                           validator: (value) =>

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_pasien/core/widget/alert_dialog_widget.dart';
-import 'package:tanyadokter_pasien/features/edit_profile/widget/manage_profile_form.dart';
+import 'package:tanyadokter_pasien/features/edit_profile/widget/edit_profile_form.dart';
 
 class DeleteProfileScreen extends StatefulWidget {
   static const routeName = '/DeleteProfile';
