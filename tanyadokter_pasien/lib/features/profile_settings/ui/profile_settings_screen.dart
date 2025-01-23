@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanyadokter_pasien/app/session_helper.dart';
 import 'package:tanyadokter_pasien/core/widget/loading_widget.dart';
-import 'package:tanyadokter_pasien/features/auth/login/bloc/login_bloc.dart';
-import 'package:tanyadokter_pasien/features/auth/login/bloc/login_event.dart';
-import 'package:tanyadokter_pasien/features/profile/widget/logout_dialog.dart';
-import 'package:tanyadokter_pasien/features/profile/widget/profile_list_tile.dart';
+import 'package:tanyadokter_pasien/features/profile_settings/widget/profile_settings_list_tile.dart';
 
-class ProfileScreen extends StatelessWidget {
-  static const routeName = '/profile';
+class ProfileSettingsScreen extends StatelessWidget {
+  static const routeName = '/profile-settings';
 
-  const ProfileScreen({super.key});
+  const ProfileSettingsScreen({super.key});
 
   Future<Map<String, String?>> getUserData() async {
     final userData = await SessionHelper.getUserSession();
@@ -22,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Profil',
+          'Pengaturan Profil',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18.0,
@@ -104,28 +100,18 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24.0),
-                    ProfileListTile(
-                      label: 'Akun',
-                      icon: Icons.settings_rounded,
-                      title: 'Pengaturan profil',
+                    ProfileSettingsListTile(
+                      icon: Icons.edit_note_rounded,
+                      title: 'Edit profil',
                       onTap: () {
-                        Navigator.of(context).pushNamed('/profile-settings');
+                        Navigator.of(context).pushNamed('/edit');
                       },
                     ),
-                    ProfileListTile(
-                      label: 'Aktivitas',
-                      icon: Icons.content_paste_search_rounded,
-                      title: 'Riwayat konsultasi',
+                    ProfileSettingsListTile(
+                      icon: Icons.delete_rounded,
+                      title: 'Hapus akun',
                       onTap: () {
-                        Navigator.of(context).pushNamed('/ProfileSettings');
-                      },
-                    ),
-                    ProfileListTile(
-                      label: 'Info',
-                      icon: Icons.info_rounded,
-                      title: 'Tentang aplikasi',
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/AboutScreen');
+                        Navigator.of(context).pushNamed('/DeleteProfile');
                       },
                     ),
                   ],
@@ -134,32 +120,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-      bottomNavigationBar: BottomAppBar(
-        height: kBottomNavigationBarHeight,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              elevation: 0.0,
-              backgroundColor: Color(0xFFDDF2FF),
-              foregroundColor: Color(0xFF116487),
-              minimumSize: Size(370.0, 30.0)),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => LogoutDialog(function: () {
-                context.read<LoginBloc>().add(LogoutRequested());
-                Navigator.of(context).pushReplacementNamed('/login');
-              }),
-            );
-          },
-          child: Text(
-            'Keluar',
-            style: TextStyle(
-              fontSize: 13.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
       ),
     );
   }

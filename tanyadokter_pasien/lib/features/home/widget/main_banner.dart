@@ -26,7 +26,7 @@ class MainBanner extends StatelessWidget {
         const SizedBox(height: 12.0),
         ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
-          child: Image.network(
+          child: Image.asset(
             image,
             height: size.height * 0.2,
             width: size.width,

@@ -1,18 +1,18 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_pasien/app/session_helper.dart';
-
-import '../widget/main_banner.dart';
+import 'package:tanyadokter_pasien/core/widget/loading_widget.dart';
+import 'package:tanyadokter_pasien/features/home/widget/main_banner.dart';
 
 List<Image> bannerImage = [
-  Image.network(
-    'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg',
+  Image.asset(
+    'assets/images/antrian.png',
     height: 140.0,
     width: 230.0,
     fit: BoxFit.cover,
   ),
-  Image.network(
-    'https://static.vecteezy.com/system/resources/previews/003/623/626/non_2x/sunset-lake-landscape-illustration-free-vector.jpg',
+  Image.asset(
+    'assets/images/riwayat.png',
     height: 140.0,
     width: 230.0,
     fit: BoxFit.cover,
@@ -37,7 +37,7 @@ class HomeScreen extends StatelessWidget {
         future: getUserName(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return Center(child: PageLoadingWidget());
           }
 
           return SafeArea(
@@ -77,29 +77,14 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 18.0),
                     const MainBanner(
                       title: 'Konsultasikan keluhan Anda',
-                      image:
-                          'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg',
+                      image: 'assets/images/konsultasi.png',
                     ),
                     const SizedBox(height: 18.0),
                     const MainBanner(
                       title: 'Dapatkan resep obat langsung',
-                      image:
-                          'https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg',
+                      image: 'assets/images/resep.png',
                     ),
                     const SizedBox(height: 18.0),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(double.infinity, 40.0),
-                        backgroundColor: Color(0xFFD7F0FF),
-                      ),
-                      child: const Text(
-                        'Mulai Konsultasi Sekarang',
-                        style: TextStyle(
-                            color: Color(0xFF116487),
-                            fontWeight: FontWeight.bold),
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -110,5 +95,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
-

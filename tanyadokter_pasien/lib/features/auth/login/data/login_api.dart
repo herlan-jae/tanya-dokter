@@ -34,7 +34,19 @@ class LoginApiService {
       final data = response.data["data"];
       return {
         "access_token": data["access_token"],
+        "id": data["user"]["id"],
+        "email": data["user"]["email"],
         "fullname": data["user"]["fullname"],
+        "phone": data["user"]["phone"],
+        "gender": data["user"]["gender"],
+        "avatar": data["user"]["avatar"],
+        "address": data["user"]["address"],
+        "village": data["user"]["village"],
+        "district": data["user"]["district"],
+        "city": data["user"]["city"],
+        "province": data["user"]["province"],
+        "country": data["user"]["country"],
+        "zip_code": data["user"]["zip_code"],
       };
     } else {
       throw Exception("Login Gagal");
