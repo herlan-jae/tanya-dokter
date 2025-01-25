@@ -197,7 +197,7 @@ class _ChatSessionScreenState extends State<ChatSessionScreen> {
                     flex: 1,
                     child: InkWell(
                       onTap: () {
-                        print('Pesan dikirim: ${_controller.text}');
+                        Navigator.of(context).pushReplacementNamed('/root');
                         _controller.clear();
                       },
                       child: const Icon(
