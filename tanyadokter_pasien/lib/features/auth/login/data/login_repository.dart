@@ -6,6 +6,10 @@ class LoginRepository {
   LoginRepository(this.loginApiService);
 
   Future<Map<String, dynamic>> login(String email, String password) async {
-    return await loginApiService.login(email, password);
+    try {
+      return await loginApiService.login(email, password);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

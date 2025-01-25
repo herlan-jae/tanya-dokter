@@ -4,6 +4,7 @@ import 'package:ionicons/ionicons.dart';
 import 'package:tanyadokter_pasien/core/constant/app_constant.dart';
 import 'package:tanyadokter_pasien/core/constant/assets_manager.dart';
 import 'package:tanyadokter_pasien/core/constant/validator.dart';
+import 'package:tanyadokter_pasien/core/widget/alert_dialog_widget.dart';
 import 'package:tanyadokter_pasien/core/widget/title_text_widget.dart';
 import 'package:tanyadokter_pasien/features/auth/login/bloc/login_bloc.dart';
 import 'package:tanyadokter_pasien/features/auth/login/bloc/login_event.dart';
@@ -58,8 +59,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.of(context).pushReplacementNamed('/root');
               }
             } else if (state is LoginFailed) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialogFailed(
+                  label: state.error,
+                  function: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
+                ),
               );
             }
           },
