@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanyadokter_pasien/core/widget/loading_widget.dart';
-import 'package:tanyadokter_pasien/features/category_list/bloc/category_bloc.dart';
-import 'package:tanyadokter_pasien/features/category_list/bloc/category_event.dart';
-import 'package:tanyadokter_pasien/features/category_list/bloc/category_state.dart';
-import 'package:tanyadokter_pasien/features/category_list/data/category_repository.dart';
-import 'package:tanyadokter_pasien/features/category_list/views/widget/doctor_category_card.dart';
-import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_repository.dart';
-import 'package:tanyadokter_pasien/features/doctor_list/views/ui/doctor_list.dart';
+import 'package:tanyadokter_pasien/features/consultation/category_list/bloc/category_bloc.dart';
+import 'package:tanyadokter_pasien/features/consultation/category_list/bloc/category_event.dart';
+import 'package:tanyadokter_pasien/features/consultation/category_list/bloc/category_state.dart';
+import 'package:tanyadokter_pasien/features/consultation/category_list/data/category_repository.dart';
+import 'package:tanyadokter_pasien/features/consultation/category_list/views/widget/doctor_category_card.dart';
+import 'package:tanyadokter_pasien/features/consultation/doctor_list/data/doctor_repository.dart';
+import 'package:tanyadokter_pasien/features/consultation/doctor_list/views/ui/doctor_list.dart';
 
 class CategoryScreen extends StatefulWidget {
   static const routeName = '/category';

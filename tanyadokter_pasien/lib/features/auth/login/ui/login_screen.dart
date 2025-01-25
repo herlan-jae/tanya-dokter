@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 style: AppConstant.labelStyle),
                             InkWell(
                               onTap: () => Navigator.of(context)
-                                  .pushNamed('/forgot-password'),
+                                  .pushReplacementNamed('/forgot-password'),
                               child: const Text(
                                 'Lupa Password?',
                                 style: TextStyle(

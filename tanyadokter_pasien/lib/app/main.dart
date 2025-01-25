@@ -19,13 +19,13 @@ import 'package:tanyadokter_pasien/features/auth/reset_password/data/reset_passw
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/forgot_password_screen.dart';
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/pin_verification_screen.dart';
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/reset_password_screen.dart';
-import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
-import 'package:tanyadokter_pasien/features/chat/data/chat_repository.dart';
-import 'package:tanyadokter_pasien/features/category_list/views/ui/category_screen.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/bloc/chat_bloc.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/data/chat_repository.dart';
+import 'package:tanyadokter_pasien/features/consultation/category_list/views/ui/category_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/prescription_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
-import 'package:tanyadokter_pasien/features/payment/bloc/payment_bloc.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/bloc/payment_bloc.dart';
 import 'package:tanyadokter_pasien/features/profile/profile_screen/ui/about_screen.dart';
 import 'package:tanyadokter_pasien/features/profile/delete_profile/ui/delete_profile.dart';
 import 'package:tanyadokter_pasien/features/profile/edit_profile/ui/edit_profile.dart';

@@ -5,7 +5,6 @@ import 'package:tanyadokter_pasien/core/constant/assets_manager.dart';
 import 'package:tanyadokter_pasien/core/constant/validator.dart';
 import 'package:tanyadokter_pasien/core/widget/title_text_widget.dart';
 import '../../email_verification/ui/email_verification.dart';
-import '../../login/ui/login_screen.dart';
 import '../bloc/register_bloc.dart';
 import '../bloc/register_event.dart';
 import '../bloc/register_state.dart';
@@ -35,7 +34,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
   late final FocusNode genderFocusNode;
 
   String? selectedGender;
-  bool obsecureText = true;
+  final _formKey = GlobalKey<FormState>();
+
+  bool _isPasswordObscured = true;
+  void _togglePasswordVisibility() {
+    setState(() {
+      _isPasswordObscured = !_isPasswordObscured;
+    });
+  }
 
   @override
   void initState() {
@@ -103,6 +109,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 18.0, vertical: 8.0),
                   child: Form(
+                    key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -138,16 +145,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: InputDecoration(
                             hintText: 'Masukkan nama lengkap',
                             hintStyle: const TextStyle(
-                              fontSize: 12.0,
+                              fontSize: 11.0,
                               color: Colors.grey,
                             ),
                           ),
+                          style: TextStyle(fontSize: 11.0),
                           onFieldSubmitted: (value) {
                             FocusScope.of(context).requestFocus(emailFocusNode);
-                          },
-                          validator: (value) {
-                            return AppValidator.repeatPasswordValidator(
-                                value: passwordController.text);
                           },
                         ),
                         const SizedBox(height: 12.0),
@@ -165,7 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: InputDecoration(
                             hintText: 'Pilih opsi',
                             hintStyle: const TextStyle(
-                              fontSize: 12.0,
+                              fontSize: 11.0,
                               color: Colors.grey,
                             ),
                             border: OutlineInputBorder(
@@ -206,10 +210,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           decoration: InputDecoration(
                             hintText: 'Masukkan email',
                             hintStyle: const TextStyle(
-                              fontSize: 12.0,
+                              fontSize: 11.0,
                               color: Colors.grey,
                             ),
                           ),
+                          style: TextStyle(fontSize: 11.0),
                           onFieldSubmitted: (value) {
                             FocusScope.of(context)
                                 .requestFocus(passwordFocusNode);
@@ -217,36 +222,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           validator: AppValidator.emailValidator,
                         ),
                         const SizedBox(height: 12.0),
-                        // Password
-                        const Text('Password',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 12.0)),
+                        const Text(
+                          'Password',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w400, fontSize: 12.0),
+                        ),
                         const SizedBox(height: 8.0),
                         TextFormField(
                           controller: passwordController,
                           focusNode: passwordFocusNode,
-                          obscureText: obsecureText,
+                          obscureText: _isPasswordObscured,
                           keyboardType: TextInputType.visiblePassword,
                           textInputAction: TextInputAction.done,
                           decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  obsecureText = !obsecureText;
-                                });
-                              },
-                              icon: Icon(obsecureText
+                              onPressed: _togglePasswordVisibility,
+                              icon: Icon(_isPasswordObscured
                                   ? Ionicons.eye_off_outline
                                   : Ionicons.eye_outline),
                             ),
                             hintText: 'Masukkan password',
                             hintStyle: const TextStyle(
-                              fontSize: 12.0,
+                              fontSize: 11.0,
                               color: Colors.grey,
                             ),
                           ),
+                          style: TextStyle(fontSize: 11.0),
                           validator: AppValidator.passwordValidator,
                         ),
+
                         const SizedBox(height: 12.0),
                         const Text('Ulangi Password',
                             style: TextStyle(
@@ -259,52 +263,62 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           textInputAction: TextInputAction.done,
                           decoration: InputDecoration(
                             suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  obsecureText = !obsecureText;
-                                });
-                              },
-                              icon: Icon(obsecureText
+                              onPressed: _togglePasswordVisibility,
+                              icon: Icon(_isPasswordObscured
                                   ? Ionicons.eye_off_outline
                                   : Ionicons.eye_outline),
                             ),
                             hintText: 'Ketik ulang password',
                             hintStyle: const TextStyle(
-                              fontSize: 12.0,
+                              fontSize: 11.0,
                               color: Colors.grey,
                             ),
                           ),
-                          obscureText: obsecureText,
+                          style: TextStyle(fontSize: 11.0),
+                          obscureText: _isPasswordObscured,
                           onFieldSubmitted: (value) {},
                           validator: (value) {
-                            return AppValidator.repeatPasswordValidator();
+                            if (value != passwordController.text) {
+                              return 'Password tidak sama';
+                            }
+                            return null;
                           },
                         ),
                         const SizedBox(height: 24.0),
                         // Button
                         ElevatedButton(
                           onPressed: () {
-                            final fullname = nameController.text;
-                            final gender = genderController.text;
-                            final email = emailController.text.trim();
-                            final password = passwordController.text;
+                            if (_formKey.currentState!.validate()) {
+                              final fullname = nameController.text;
+                              final gender = genderController.text;
+                              final email = emailController.text.trim();
+                              final password = passwordController.text;
 
-                            context.read<RegisterBloc>().add(
-                                  RegisterSubmitted(
-                                    fullname: fullname,
-                                    gender: gender,
-                                    email: email,
-                                    password: password,
+                              if (passwordController.text ==
+                                  repeatPasswordController.text) {
+                                context.read<RegisterBloc>().add(
+                                      RegisterSubmitted(
+                                        fullname: fullname,
+                                        gender: gender,
+                                        email: email,
+                                        password: password,
+                                      ),
+                                    );
+
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        EmailVerificationScreen(email: email),
                                   ),
                                 );
-
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    EmailVerificationScreen(email: email),
-                              ),
-                            );
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Password tidak sama')),
+                                );
+                              }
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 4.0,
@@ -333,7 +347,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               InkWell(
                                 onTap: () {
                                   Navigator.of(context)
-                                      .pushNamed(LoginScreen.routeName);
+                                      .pushReplacementNamed('/login');
                                 },
                                 child: const Text(
                                   'Login sekarang',

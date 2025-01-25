@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tanyadokter_pasien/features/payment/bloc/payment_event.dart';
-import 'package:tanyadokter_pasien/features/payment/bloc/payment_state.dart';
-import 'package:tanyadokter_pasien/features/payment/data/payment_model.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/bloc/payment_event.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/bloc/payment_state.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/data/payment_model.dart';
 
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   PaymentBloc() : super(PaymentInitial()) {

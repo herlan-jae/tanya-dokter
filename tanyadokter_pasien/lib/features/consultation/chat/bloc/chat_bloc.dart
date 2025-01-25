@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tanyadokter_pasien/features/chat/bloc/chat_event.dart';
-import 'package:tanyadokter_pasien/features/chat/bloc/chat_state.dart';
-import 'package:tanyadokter_pasien/features/chat/data/chat_repository.dart';
-import 'package:tanyadokter_pasien/features/chat/data/message_model.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/bloc/chat_event.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/bloc/chat_state.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/data/chat_repository.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/data/message_model.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepository _repository;

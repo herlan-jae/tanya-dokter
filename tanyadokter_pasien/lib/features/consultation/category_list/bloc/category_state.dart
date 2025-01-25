@@ -1,4 +1,4 @@
-import 'package:tanyadokter_pasien/features/category_list/data/category_model.dart';
+import 'package:tanyadokter_pasien/features/consultation/category_list/data/category_model.dart';
 
 abstract class CategoryState {}
 

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanyadokter_pasien/app/session_helper.dart';
 import 'package:tanyadokter_pasien/core/widget/loading_widget.dart';
-import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
-import 'package:tanyadokter_pasien/features/chat/bloc/chat_event.dart';
-import 'package:tanyadokter_pasien/features/chat/bloc/chat_state.dart';
-import 'package:tanyadokter_pasien/features/chat/views/widget/exit_chat_dialog_widget.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/bloc/chat_bloc.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/bloc/chat_event.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/bloc/chat_state.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/views/widget/exit_chat_dialog_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   static const routeName = '/chat';

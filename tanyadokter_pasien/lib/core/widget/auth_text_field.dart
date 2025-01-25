@@ -46,10 +46,11 @@ class _AuthTextFieldState extends State<AuthTextField> {
       focusNode: _focusNode,
       keyboardType: widget.inputType,
       textInputAction: widget.actionType,
+      style: TextStyle(fontSize: 11.0),
       decoration: InputDecoration(
         hintText: widget.hintText,
         hintStyle: const TextStyle(
-          fontSize: 12.0,
+          fontSize: 11.0,
           color: Colors.grey,
         ),
         border: OutlineInputBorder(

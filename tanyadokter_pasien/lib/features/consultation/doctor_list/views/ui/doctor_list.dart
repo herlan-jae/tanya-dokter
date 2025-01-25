@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_pasien/core/widget/alert_dialog_widget.dart';
 
-import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_model.dart';
-import 'package:tanyadokter_pasien/features/doctor_list/views/widget/doctor_card.dart';
-import 'package:tanyadokter_pasien/features/doctor_list/views/widget/doctor_profile.dart';
-import 'package:tanyadokter_pasien/features/payment/views/ui/payment_screen.dart';
+import 'package:tanyadokter_pasien/features/consultation/doctor_list/data/doctor_model.dart';
+import 'package:tanyadokter_pasien/features/consultation/doctor_list/views/widget/doctor_card.dart';
+import 'package:tanyadokter_pasien/features/consultation/doctor_list/views/widget/doctor_profile.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/views/ui/payment_screen.dart';
 
 class DoctorListScreen extends StatelessWidget {
   static const routeName = '/doctor-list';

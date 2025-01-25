@@ -3,7 +3,7 @@ import 'dart:async';
 
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_pasien/features/chat/views/ui/chat_screen.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/views/ui/chat_screen.dart';
 
 class ConnectingScreen extends StatefulWidget {
   static const routeName = '/connect';

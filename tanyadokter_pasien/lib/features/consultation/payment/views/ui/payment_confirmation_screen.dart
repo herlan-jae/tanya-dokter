@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 import 'package:tanyadokter_pasien/core/widget/alert_dialog_widget.dart';
 import 'package:tanyadokter_pasien/features/consultation/connecting_screen.dart';
-import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_model.dart';
+import 'package:tanyadokter_pasien/features/consultation/doctor_list/data/doctor_model.dart';
 
 class PaymentConfirmScreen extends StatefulWidget {
   static const routeName = '/payment-confirm';

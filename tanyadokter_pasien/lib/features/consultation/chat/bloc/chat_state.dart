@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:tanyadokter_pasien/features/chat/data/message_model.dart';
+import 'package:tanyadokter_pasien/features/consultation/chat/data/message_model.dart';
 
 abstract class ChatState {}
 

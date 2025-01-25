@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_model.dart';
-import 'package:tanyadokter_pasien/features/payment/bloc/payment_bloc.dart';
-import 'package:tanyadokter_pasien/features/payment/bloc/payment_event.dart';
-import 'package:tanyadokter_pasien/features/payment/bloc/payment_state.dart';
-import 'package:tanyadokter_pasien/features/payment/data/payment_model.dart';
-import 'package:tanyadokter_pasien/features/payment/views/ui/payment_confirmation_screen.dart';
-import 'package:tanyadokter_pasien/features/payment/views/widget/payment_method_widget.dart';
+import 'package:tanyadokter_pasien/features/consultation/doctor_list/data/doctor_model.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/bloc/payment_bloc.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/bloc/payment_event.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/bloc/payment_state.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/data/payment_model.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/views/ui/payment_confirmation_screen.dart';
+import 'package:tanyadokter_pasien/features/consultation/payment/views/widget/payment_method_widget.dart';
 
 class PaymentScreen extends StatelessWidget {
   static const routeName = '/payment';
