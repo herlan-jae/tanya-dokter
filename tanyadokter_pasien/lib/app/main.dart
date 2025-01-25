@@ -24,7 +24,7 @@ import 'package:tanyadokter_pasien/features/chat/data/chat_repository.dart';
 import 'package:tanyadokter_pasien/features/consultation/connecting_screen.dart';
 import 'package:tanyadokter_pasien/features/category_list/views/ui/category_screen.dart';
 import 'package:tanyadokter_pasien/features/payment/views/ui/payment_confirmation_screen.dart';
-import 'package:tanyadokter_pasien/features/history/ui/doctors_prescription.dart';
+import 'package:tanyadokter_pasien/features/history/ui/prescription_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
 import 'package:tanyadokter_pasien/features/payment/bloc/payment_bloc.dart';
@@ -116,8 +116,8 @@ class MyApp extends StatelessWidget {
             '/edit': (context) => EditProfileScreen(),
             '/delete': (context) => DeleteProfileScreen(),
             '/about': (context) => AboutScreen(),
-            "/history": (context) => HistoryScreen(),
-            PrescriptionScreen.routeName: (context) => PrescriptionScreen(),
+            '/history': (context) => HistoryScreen(),
+            '/resep': (context) => PrescriptionScreen(),
           },
         ),
       ),

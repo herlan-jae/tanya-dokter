@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ConsultationCard extends StatelessWidget {
   final String date;
   final String numberID;
-  final String patientName;
+  final String? patientName;
   final String doctorName;
   final String symptom;
 
@@ -48,7 +48,7 @@ class ConsultationCard extends StatelessWidget {
                     style: TextStyle(fontSize: 11),
                   ),
                   Text(
-                    patientName,
+                    patientName!,
                     style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
@@ -111,7 +111,7 @@ class ConsultationCard extends StatelessWidget {
                           foregroundColor: Color(0xFFDDF2FF),
                         ),
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/Prescription');
+                          Navigator.of(context).pushNamed('/resep');
                         },
                       ),
                     ],
