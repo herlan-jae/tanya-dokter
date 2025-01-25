@@ -21,9 +21,7 @@ import 'package:tanyadokter_pasien/features/auth/reset_password/ui/pin_verificat
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/reset_password_screen.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
 import 'package:tanyadokter_pasien/features/chat/data/chat_repository.dart';
-import 'package:tanyadokter_pasien/features/consultation/connecting_screen.dart';
 import 'package:tanyadokter_pasien/features/category_list/views/ui/category_screen.dart';
-import 'package:tanyadokter_pasien/features/payment/views/ui/payment_confirmation_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/prescription_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
@@ -96,9 +94,6 @@ class MyApp extends StatelessWidget {
           theme: AppTheme.theme(context),
           home: const LoginScreen(),
           initialRoute: isLoggedIn ? '/root' : '/login',
-          // '/chat',
-          // '/root'
-          // isLoggedIn ? '/root' : '/login',
           routes: {
             '/root': (context) => const RootScreen(),
             '/login': (context) => LoginScreen(),
@@ -108,10 +103,7 @@ class MyApp extends StatelessWidget {
             '/reset-password': (context) => ResetEmailScreen(),
             '/dashboard': (context) => HomeScreen(),
             '/profile': (context) => ProfileScreen(),
-            // '/chat': (context) => ChatPage(receiverId: '5'),
-            '/connect': (context) => ConnectingScreen(),
             '/category': (context) => CategoryScreen(),
-            '/payment-confirm': (context) => PaymentConfirmScreen(),
             '/profile-settings': (context) => ProfileSettingsScreen(),
             '/edit': (context) => EditProfileScreen(),
             '/delete': (context) => DeleteProfileScreen(),

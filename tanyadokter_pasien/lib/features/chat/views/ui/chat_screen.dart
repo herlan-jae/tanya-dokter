@@ -1,20 +1,25 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:tanyadokter_pasien/app/session_helper.dart';
 import 'package:tanyadokter_pasien/core/widget/loading_widget.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_bloc.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_event.dart';
 import 'package:tanyadokter_pasien/features/chat/bloc/chat_state.dart';
+import 'package:tanyadokter_pasien/features/chat/views/widget/exit_chat_dialog_widget.dart';
 
 class ChatScreen extends StatefulWidget {
   static const routeName = '/chat';
   final String receiverId;
   final bool isDoctor;
+  final String name;
 
   const ChatScreen({
     super.key,
     required this.receiverId,
     required this.isDoctor,
+    required this.name,
   });
 
   @override
@@ -72,7 +77,13 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.isDoctor ? 'Chat with Patient' : 'Chat with Doctor'),
+        leading: IconButton(
+          onPressed: () {
+            ExitChatDialog();
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+        title: Text(widget.name),
       ),
       body: BlocBuilder<ChatBloc, ChatState>(
         builder: (context, state) {

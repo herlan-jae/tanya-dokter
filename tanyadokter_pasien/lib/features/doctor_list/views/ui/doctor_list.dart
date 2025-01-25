@@ -34,6 +34,7 @@ class DoctorListScreen extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => PaymentScreen(
+                  doctor: doctor,
                   name: doctor.name,
                   category: doctor.category,
                   image: doctor.image,

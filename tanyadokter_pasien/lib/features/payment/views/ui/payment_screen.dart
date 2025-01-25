@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_model.dart';
 import 'package:tanyadokter_pasien/features/payment/bloc/payment_bloc.dart';
 import 'package:tanyadokter_pasien/features/payment/bloc/payment_event.dart';
 import 'package:tanyadokter_pasien/features/payment/bloc/payment_state.dart';
 import 'package:tanyadokter_pasien/features/payment/data/payment_model.dart';
+import 'package:tanyadokter_pasien/features/payment/views/ui/payment_confirmation_screen.dart';
 import 'package:tanyadokter_pasien/features/payment/views/widget/payment_method_widget.dart';
 
 class PaymentScreen extends StatelessWidget {
@@ -13,6 +15,7 @@ class PaymentScreen extends StatelessWidget {
   final String category;
   final String image;
   final String price;
+  final DoctorModel doctor;
 
   const PaymentScreen({
     super.key,
@@ -20,6 +23,7 @@ class PaymentScreen extends StatelessWidget {
     required this.category,
     required this.image,
     required this.price,
+    required this.doctor,
   });
 
   @override
@@ -31,7 +35,6 @@ class PaymentScreen extends StatelessWidget {
           elevation: 0.0,
           leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pop();
               Navigator.of(context).pop();
             },
             icon: const Icon(Icons.arrow_back_rounded),
@@ -174,6 +177,12 @@ class PaymentScreen extends StatelessWidget {
                                   size: 20.0,
                                 ),
                                 onTap: () {
+                                  context.read<PaymentBloc>().add(
+                                        SelectPaymentMethod(
+                                          method.id,
+                                          method.paymentName,
+                                        ),
+                                      );
                                   showDialog(
                                     context: context,
                                     builder: (context) {
@@ -189,6 +198,7 @@ class PaymentScreen extends StatelessWidget {
                                                     method.paymentName,
                                                   ),
                                                 );
+                                            Navigator.of(context).pop();
                                           },
                                         ),
                                       );
@@ -203,8 +213,21 @@ class PaymentScreen extends StatelessWidget {
                       if (state is PaymentMethodSelected)
                         Padding(
                           padding: const EdgeInsets.only(top: 24.0),
-                          child: Text(
-                              'Metode pembayaran yang dipilih: ${state.paymentOptions}'),
+                          child: Container(
+                            width: 370.0,
+                            padding: EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              color: Color(0xFFD7F0FF),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            child: Text(
+                              'Metode pembayaran yang dipilih: ${state.paymentOptions}',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
                     ],
                   ),
@@ -237,9 +260,22 @@ class PaymentScreen extends StatelessWidget {
                   foregroundColor: Color(0xFF116487),
                   minimumSize: Size(370.0, 30.0),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/payment-confirm');
-                },
+                onPressed:
+                    context.read<PaymentBloc>().state is PaymentMethodSelected
+                        ? () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaymentConfirmScreen(
+                                  name: doctor.name,
+                                  category: doctor.category,
+                                  image: doctor.image,
+                                  doctor: doctor,
+                                ),
+                              ),
+                            );
+                          }
+                        : null,
                 child: Text(
                   'Buat Transaksi',
                   style: TextStyle(

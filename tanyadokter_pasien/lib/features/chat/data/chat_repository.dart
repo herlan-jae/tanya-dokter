@@ -17,7 +17,6 @@ class ChatRepository {
       _channel = WebSocketChannel.connect(uri);
       _channel.stream.handleError((error) {
         print('WebSocket error: $error');
-        // Coba reconnect jika ada error
         reconnect();
       });
     } catch (e) {
@@ -51,5 +50,3 @@ class ChatRepository {
     }
   }
 }
-
- //{required String userId, required String receiverId}

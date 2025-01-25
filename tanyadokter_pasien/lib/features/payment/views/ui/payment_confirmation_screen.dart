@@ -1,20 +1,113 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class PaymentConfirmScreen extends StatelessWidget {
+import 'package:tanyadokter_pasien/core/widget/alert_dialog_widget.dart';
+import 'package:tanyadokter_pasien/features/consultation/connecting_screen.dart';
+import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_model.dart';
+
+class PaymentConfirmScreen extends StatefulWidget {
   static const routeName = '/payment-confirm';
+  final String name;
+  final String category;
+  final String image;
+  final DoctorModel doctor;
 
-  const PaymentConfirmScreen({super.key});
+  const PaymentConfirmScreen({
+    super.key,
+    required this.name,
+    required this.category,
+    required this.image,
+    required this.doctor,
+  });
+
+  @override
+  _PaymentConfirmScreenState createState() => _PaymentConfirmScreenState();
+}
+
+class _PaymentConfirmScreenState extends State<PaymentConfirmScreen> {
+  late Timer _timer;
+  int _remainingSeconds = 1200;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingSeconds > 0) {
+        setState(() {
+          _remainingSeconds--;
+        });
+      } else {
+        _timer.cancel();
+        _showTimeoutDialog();
+      }
+    });
+  }
+
+  String _formatTime(int seconds) {
+    final hours = seconds ~/ 3600;
+    final minutes = (seconds % 3600) ~/ 60;
+    final remainingSeconds = seconds % 60;
+    return '${hours.toString().padLeft(2, '0')}:'
+        '${minutes.toString().padLeft(2, '0')}:'
+        '${remainingSeconds.toString().padLeft(2, '0')}';
+  }
+
+  void _showTimeoutDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialogFailed(
+          label:
+              'Batas waktu pembayaran telah berakhir. Silakan mulai ulang proses pembayaran.',
+          function: () {
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/root', (route) => false);
+          },
+        );
+      },
+    );
+  }
+
+  void navigateToConnect() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ConnectingScreen(
+          name: widget.doctor.name,
+          category: widget.doctor.category,
+          image: widget.doctor.image,
+          receiverId: '5',
+        ),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final DateTime currentTime = DateTime.now();
+    final DateTime limitTime = currentTime.add(const Duration(minutes: 20));
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
         leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.arrow_back_rounded)),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: const Icon(Icons.arrow_back_rounded),
+        ),
         title: const Text(
           'Konfirmasi Pembayaran',
           style: TextStyle(
@@ -28,21 +121,21 @@ class PaymentConfirmScreen extends StatelessWidget {
           child: Column(
             children: [
               Container(
-                color: Color(0xFFDDF2FF),
+                color: const Color(0xFFDDF2FF),
                 width: double.infinity,
                 child: Padding(
-                  padding: EdgeInsets.all(24.0),
+                  padding: const EdgeInsets.all(24.0),
                   child: Column(
                     children: [
                       Text(
-                        '00:20:16',
-                        style: TextStyle(
+                        _formatTime(_remainingSeconds),
+                        style: const TextStyle(
                           fontSize: 32.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
+                      const SizedBox(height: 8.0),
+                      const Text(
                         'Waktu Setor yang Tersedia',
                         style: TextStyle(
                           color: Colors.grey,
@@ -50,16 +143,16 @@ class PaymentConfirmScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 12.0),
+                      const SizedBox(height: 12.0),
                       Text(
-                        '${DateTime.now()}',
-                        style: TextStyle(
+                        DateFormat('yyyy-MM-dd HH:mm').format(limitTime),
+                        style: const TextStyle(
                           fontSize: 15.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 8.0),
-                      Text(
+                      const SizedBox(height: 8.0),
+                      const Text(
                         'Batas Waktu',
                         style: TextStyle(
                           color: Colors.grey,
@@ -205,14 +298,12 @@ class PaymentConfirmScreen extends StatelessWidget {
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             elevation: 0.0,
-            backgroundColor: Color(0xFFDDF2FF),
-            foregroundColor: Color(0xFF116487),
-            minimumSize: Size(370.0, 30.0),
+            backgroundColor: const Color(0xFFDDF2FF),
+            foregroundColor: const Color(0xFF116487),
+            minimumSize: const Size(370.0, 30.0),
           ),
-          onPressed: () {
-            Navigator.of(context).pushNamed('/connect');
-          },
-          child: Text(
+          onPressed: _remainingSeconds > 0 ? navigateToConnect : null,
+          child: const Text(
             'Konfirmasi Pembayaran',
             style: TextStyle(
               fontSize: 13.0,
