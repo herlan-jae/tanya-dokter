@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:tanyadokter_pasien/app/session_helper.dart';
-import 'package:tanyadokter_pasien/core/widget/alert_dialog_widget.dart';
+import 'package:tanyadokter_dokter/app/session_helper.dart';
+import 'package:tanyadokter_dokter/constant/alert_dialogi_widget.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const routeName = '/edit';
@@ -83,11 +83,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         child: SafeArea(
           child: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 12.0),
+                  const SizedBox(height: 12.0),
                   Align(
                     alignment: Alignment.center,
                     child: GestureDetector(
@@ -100,7 +101,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                color: Color(0xFF116487),
+                                color: const Color(0xFF116487),
                                 width: 4,
                               ),
                             ),
@@ -108,7 +109,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               radius: 46,
                               backgroundImage: _imageFile != null
                                   ? FileImage(_imageFile!)
-                                  : NetworkImage(
+                                  : const NetworkImage(
                                       'https://via.placeholder.com/150'),
                             ),
                           ),
@@ -116,11 +117,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             bottom: 3,
                             right: 3,
                             child: CircleAvatar(
-                              backgroundColor: Color(0xFF116487),
+                              backgroundColor: const Color(0xFF116487),
                               maxRadius: 14.0,
                               child: GestureDetector(
                                 onTap: () {},
-                                child: Icon(
+                                child: const Icon(
                                   Icons.photo_camera,
                                   color: Colors.white,
                                   size: 14.0,
@@ -132,7 +133,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 12.0),
+                  const SizedBox(height: 12.0),
                   editFormField(
                     label: 'Nama Lengkap',
                     controller: _nameController,
@@ -225,34 +226,34 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 0.0,
-                  backgroundColor: Color(0xFFDDF2FF),
-                  foregroundColor: Color(0xFF116487),
+                  backgroundColor: const Color(0xFFDDF2FF),
+                  foregroundColor: const Color(0xFF116487),
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: Text(
+                child: const Text(
                   'Batal',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
             ),
-            SizedBox(width: 12.0),
+            const SizedBox(width: 12.0),
             Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 0.0,
-                  backgroundColor: Color(0xFF116487),
-                  foregroundColor: Color(0xFFDDF2FF),
+                  backgroundColor: const Color(0xFF116487),
+                  foregroundColor: const Color(0xFFDDF2FF),
                 ),
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => AlertDialogSuccess(
+                    builder: (context) => const AlertDialogSuccess(
                         label: 'Pengaturan profil berhasil diubah'),
                   );
                 },
-                child: Text(
+                child: const Text(
                   'Simpan',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
@@ -274,18 +275,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }) {
     if (label == "Jenis Kelamin") {
       return Padding(
-        padding: EdgeInsets.only(bottom: 18.0),
+        padding: const EdgeInsets.only(bottom: 18.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 12.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 6.0),
+            const SizedBox(height: 6.0),
             DropdownButtonFormField<String>(
               value: gender,
               onChanged: (value) {
@@ -299,11 +300,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   child: Text(gender.toUpperCase()),
                 );
               }).toList(),
-              style: TextStyle(fontSize: 13.0),
+              style: const TextStyle(fontSize: 13.0),
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.0)),
-                contentPadding: EdgeInsets.all(12.0),
+                contentPadding: const EdgeInsets.all(12.0),
               ),
             ),
           ],
@@ -311,30 +312,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       );
     }
     return Padding(
-      padding: EdgeInsets.only(bottom: 18.0),
+      padding: const EdgeInsets.only(bottom: 18.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12.0,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 6.0),
+          const SizedBox(height: 6.0),
           TextFormField(
             controller: controller,
             validator: validator,
             keyboardType: keyboardType,
-            style: TextStyle(fontSize: 13.0),
+            style: const TextStyle(fontSize: 13.0),
             maxLines: maxLines ?? 1,
             decoration: InputDecoration(
-              hintStyle: TextStyle(fontSize: 11.0),
+              hintStyle: const TextStyle(fontSize: 11.0),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              contentPadding: EdgeInsets.all(12.0),
+              contentPadding: const EdgeInsets.all(12.0),
             ),
           ),
         ],

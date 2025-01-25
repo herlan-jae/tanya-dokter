@@ -8,7 +8,8 @@ import 'package:tanyadokter_dokter/features/consultation/ui/chat_session_screen.
 import 'package:tanyadokter_dokter/features/consultation/ui/connecting_screen.dart';
 import 'package:tanyadokter_dokter/features/consultation/ui/consultation_screen.dart';
 import 'package:tanyadokter_dokter/features/consultation/ui/prescription_screen.dart';
-import 'package:tanyadokter_dokter/features/dashboard/ui/home_screen.dart';
+import 'package:tanyadokter_dokter/features/edit_profile/ui/edit_profile.dart';
+import 'package:tanyadokter_dokter/features/home/ui/home_screen.dart';
 import 'package:tanyadokter_dokter/features/history/ui/history_detail.dart';
 import 'package:tanyadokter_dokter/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_dokter/features/login/bloc/login_bloc.dart';
@@ -17,7 +18,7 @@ import 'package:tanyadokter_dokter/features/login/data/login_repository.dart';
 import 'package:tanyadokter_dokter/features/login/ui/login_screen.dart';
 import 'package:tanyadokter_dokter/features/profile/ui/info_screen.dart';
 import 'package:tanyadokter_dokter/features/profile/ui/profile_screen.dart';
-import 'package:tanyadokter_dokter/features/profile/ui/profile_setting_screen.dart';
+import 'package:tanyadokter_dokter/features/profile_settings/ui/profile_setting_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,13 +54,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.theme(context),
           home: const RootScreen(),
-          initialRoute: '/root',
-          // isLoggedIn ? '/root' : '/login'
+          initialRoute: isLoggedIn ? '/root' : '/login',
+          //
           routes: {
             '/root': (context) => const RootScreen(),
             '/login': (context) => const LoginScreen(),
             '/home': (context) => const HomeScreen(),
-            '/profile': (context) => const ProfileScreen(),
+            '/profile': (context) => ProfileScreen(),
             '/consultation': (context) => const ConsultationScreen(),
             ConnectingScreen.routeName: (context) => const ConnectingScreen(),
             ChatSessionScreen.routeName: (context) => const ChatSessionScreen(),
@@ -67,7 +68,8 @@ class MyApp extends StatelessWidget {
                 const PrescriptionScreen(),
             '/history': (context) => const HistoryScreen(),
             '/history-detail': (context) => const HistoryDetail(),
-            '/profile-settings': (context) => const ProfileSettingScreen(),
+            '/profile-settings': (context) => ProfileSettingScreen(),
+            '/edit': (context) => const EditProfileScreen(),
             '/info': (context) => const InfoScreen(),
           },
         ),

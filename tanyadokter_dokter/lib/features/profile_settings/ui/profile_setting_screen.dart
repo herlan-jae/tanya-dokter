@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanyadokter_dokter/app/session_helper.dart';
 import 'package:tanyadokter_dokter/constant/loading_widget.dart';
-import 'package:tanyadokter_dokter/constant/logout_dialog_widget.dart';
-import 'package:tanyadokter_dokter/features/login/bloc/login_bloc.dart';
-import 'package:tanyadokter_dokter/features/login/bloc/login_event.dart';
+import 'package:tanyadokter_dokter/features/profile_settings/widget/profile_setting_list_tile.dart';
 
-import '../widget/profile_list_tile.dart';
-
-class ProfileScreen extends StatelessWidget {
-  static const routeName = '/profile';
-  ProfileScreen({super.key});
+class ProfileSettingScreen extends StatelessWidget {
+  static const routeName = '/profile-settings';
+  ProfileSettingScreen({super.key});
 
   final Map<String, String> categoryLabel = {
     "1": "Dokter Umum",
@@ -22,7 +17,6 @@ class ProfileScreen extends StatelessWidget {
     "7": "Dokter Spesialis Anak",
     "8": "Dokter Spesialis Kandungan",
   };
-
   Future<Map<String, String?>> getUserData() async {
     final userData = await SessionHelper.getUserSession();
     return userData;
@@ -33,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Profil',
+          'Pengaturan Profil',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18.0,
@@ -50,7 +44,6 @@ class ProfileScreen extends StatelessWidget {
 
           String categoryId = userData["category_id"] ?? '0';
           String categoryText = categoryLabel[categoryId] ?? 'Kategori Dokter';
-
           return SafeArea(
             child: SingleChildScrollView(
               child: Padding(
@@ -118,28 +111,18 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 24.0),
-                    ProfileListTile(
-                      label: 'Akun',
-                      icon: Icons.settings_rounded,
-                      title: 'Pengaturan profil',
+                    ProfileSettingsListTile(
+                      icon: Icons.edit_note_rounded,
+                      title: 'Edit profil',
                       onTap: () {
-                        Navigator.of(context).pushNamed('/profile-settings');
+                        Navigator.of(context).pushNamed('/edit');
                       },
                     ),
-                    ProfileListTile(
-                      label: 'Aktivitas',
-                      icon: Icons.content_paste_search_rounded,
-                      title: 'Riwayat konsultasi',
+                    ProfileSettingsListTile(
+                      icon: Icons.delete_rounded,
+                      title: 'Hapus akun',
                       onTap: () {
-                        Navigator.of(context).pushNamed('/history');
-                      },
-                    ),
-                    ProfileListTile(
-                      label: 'Info',
-                      icon: Icons.info_rounded,
-                      title: 'Tentang aplikasi',
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/info');
+                        Navigator.of(context).pushNamed('/DeleteProfile');
                       },
                     ),
                   ],
@@ -148,32 +131,6 @@ class ProfileScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-      bottomNavigationBar: BottomAppBar(
-        height: kBottomNavigationBarHeight,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              elevation: 0.0,
-              backgroundColor: const Color(0xFFDDF2FF),
-              foregroundColor: const Color(0xFF116487),
-              minimumSize: const Size(370.0, 30.0)),
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => LogoutDialog(function: () {
-                context.read<LoginBloc>().add(LogoutRequested());
-                Navigator.of(context).pushReplacementNamed('/login');
-              }),
-            );
-          },
-          child: const Text(
-            'Keluar',
-            style: TextStyle(
-              fontSize: 13.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
       ),
     );
   }

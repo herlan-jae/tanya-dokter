@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_dokter/app/session_helper.dart';
-import 'package:tanyadokter_dokter/features/dashboard/widget/main_banner.dart';
+import 'package:tanyadokter_dokter/features/home/widget/main_banner.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';

@@ -27,15 +27,29 @@ class LoginApiService {
 
   Future<Map<String, dynamic>> login(String email, String password) async {
     final response = await dio.post(
-      "https://tanya-dokter-api.fakhrurcodes.my.id/v1/auth/signin",
-      data: {"email": email, "password": password},
+      'https://tanya-dokter-api.fakhrurcodes.my.id/v1/auth/signin',
+      data: {'email': email, 'password': password},
     );
-
     if (response.statusCode == 200) {
       final data = response.data["data"];
       return {
         "access_token": data["access_token"],
+        "id": data["user"]["id"],
+        "email": data["user"]["email"],
+        "code": data["user"]["code"],
         "fullname": data["user"]["fullname"],
+        "phone": data["user"]["phone"],
+        "status": data["user"]["status"],
+        "gender": data["user"]["gender"],
+        "avatar": data["user"]["avatar"],
+        "address": data["user"]["address"],
+        "village": data["user"]["village"],
+        "district": data["user"]["district"],
+        "city": data["user"]["city"],
+        "province": data["user"]["province"],
+        "country": data["user"]["country"],
+        "zip_code": data["user"]["zip_code"],
+        "category_id": data["user"]["category_id"],
       };
     } else {
       throw Exception("Login Gagal");

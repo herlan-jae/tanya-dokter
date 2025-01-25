@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_dokter/features/consultation/ui/consultation_screen.dart';
-import 'package:tanyadokter_dokter/features/dashboard/ui/home_screen.dart';
+import 'package:tanyadokter_dokter/features/home/ui/home_screen.dart';
 import 'package:tanyadokter_dokter/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_dokter/features/profile/ui/profile_screen.dart';
 
@@ -21,7 +21,7 @@ class _RootScreenState extends State<RootScreen> {
         const HomeScreen(),
         const ConsultationScreen(),
         const HistoryScreen(),
-        const ProfileScreen(),
+        ProfileScreen(),
       ][currentScreenIndex],
       bottomNavigationBar: NavigationBar(
         indicatorColor: Colors.blue,

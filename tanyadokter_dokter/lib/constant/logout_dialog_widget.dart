@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_pasien/core/constant/assets_manager.dart';
+import 'package:tanyadokter_dokter/constant/assets_manager.dart';
 
 class LogoutDialog extends StatelessWidget {
   final Function function;
@@ -20,19 +20,19 @@ class LogoutDialog extends StatelessWidget {
               AssetsManager.failIcon,
               height: 60.0,
             ),
-            SizedBox(height: 24.0),
-            Text(
+            const SizedBox(height: 24.0),
+            const Text(
               'Keluar dari aplikasi?',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8.0),
-            Text(
+            const SizedBox(height: 8.0),
+            const Text(
               'Kamu bisa login lagi nanti',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400),
             ),
-            SizedBox(height: 24.0),
+            const SizedBox(height: 24.0),
             Row(
               children: [
                 Expanded(
@@ -41,25 +41,25 @@ class LogoutDialog extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(220.0, 30.0),
+                      minimumSize: const Size(220.0, 30.0),
                       backgroundColor: Colors.grey,
                       foregroundColor: Colors.white,
                     ),
-                    child: Text('Batal'),
+                    child: const Text('Batal'),
                   ),
                 ),
-                SizedBox(width: 4.0),
+                const SizedBox(width: 4.0),
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () {
                       function();
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(220.0, 30.0),
+                      minimumSize: const Size(220.0, 30.0),
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
                     ),
-                    child: Text('Keluar'),
+                    child: const Text('Keluar'),
                   ),
                 )
               ],
