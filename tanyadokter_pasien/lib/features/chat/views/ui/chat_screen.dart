@@ -79,7 +79,8 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            ExitChatDialog();
+            showDialog(
+                context: context, builder: (context) => ExitChatDialog());
           },
           icon: Icon(Icons.arrow_back),
         ),

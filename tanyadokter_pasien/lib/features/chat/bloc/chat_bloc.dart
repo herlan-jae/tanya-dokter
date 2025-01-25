@@ -24,27 +24,20 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ConnectToChat event,
     Emitter<ChatState> emit,
   ) async {
-    print('Connecting to chat with userId: ${event.userId}');
     try {
       _currentUserId = event.userId;
       _isDoctor = event.isDoctor;
-      _repository.connect();
+
+      await _repository.connect(); // Await the connection
 
       _chatSubscription = _repository.messages.listen(
-        (message) {
-          print('Message received: ${message.content}');
-          add(MessageReceived(message: message));
-        },
-        onError: (error) {
-          print('Error in message stream: $error');
-          emit(ChatError(error: 'Error receiving message: $error'));
-        },
+        (message) => add(MessageReceived(message: message)),
+        onError: (error) => emit(ChatError(error: error.toString())),
       );
 
       emit(ChatConnected(messages: []));
     } catch (e) {
-      print('Error connecting to chat: $e');
-      emit(ChatError(error: e.toString()));
+      emit(ChatError(error: 'Connection failed: ${e.toString()}'));
     }
   }
 
