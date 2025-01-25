@@ -56,6 +56,7 @@ class _ConnectingScreenState extends State<ConnectingScreen> {
           receiverId: "5",
           isDoctor: false,
           name: widget.name,
+          image: widget.image,
         ),
       ),
     );

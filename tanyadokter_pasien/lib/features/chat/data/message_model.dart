@@ -32,7 +32,7 @@ class Message {
       'senderId': senderId,
       'receiverId': receiverId,
       'content': content,
-      'timestamp': timestamp.toIso8601String(),
+      'timestamp': timestamp.hour,
       'isDoctor': isDoctor,
     };
   }
