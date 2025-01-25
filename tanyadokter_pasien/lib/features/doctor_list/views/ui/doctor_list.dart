@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_pasien/core/widget/alert_dialog_widget.dart';
 
-import 'package:tanyadokter_pasien/features/doctor/data/doctor_model.dart';
-import 'package:tanyadokter_pasien/features/doctor/views/widget/doctor_card.dart';
-import 'package:tanyadokter_pasien/features/doctor/views/widget/doctor_profile.dart';
+import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_model.dart';
+import 'package:tanyadokter_pasien/features/doctor_list/views/widget/doctor_card.dart';
+import 'package:tanyadokter_pasien/features/doctor_list/views/widget/doctor_profile.dart';
 import 'package:tanyadokter_pasien/features/payment/views/ui/payment_screen.dart';
 
 class DoctorListScreen extends StatelessWidget {
@@ -58,7 +58,6 @@ class DoctorListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController searchController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -82,55 +81,6 @@ class DoctorListScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  hintText: 'Cari dokter',
-                  prefixIcon: const Icon(Icons.search_rounded),
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.clear_rounded),
-                    onPressed: () {
-                      searchController.clear();
-                    },
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30.0),
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 20.0),
-                ),
-              ),
-              const SizedBox(height: 12.0),
-              Text(
-                'Urut berdasarkan',
-                style: const TextStyle(
-                    fontSize: 16.0, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(width: 1.0),
-                    ),
-                    onPressed: () {},
-                    child: const Text('Nama'),
-                  ),
-                  const SizedBox(width: 8.0),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(width: 1.0),
-                    ),
-                    onPressed: () {},
-                    child: const Text('Status'),
-                  ),
-                  const SizedBox(width: 8.0),
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('Reset'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12.0),
               Expanded(
                 child: ListView.builder(
                   itemCount: doctors.length,

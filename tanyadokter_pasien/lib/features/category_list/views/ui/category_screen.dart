@@ -6,8 +6,8 @@ import 'package:tanyadokter_pasien/features/category_list/bloc/category_event.da
 import 'package:tanyadokter_pasien/features/category_list/bloc/category_state.dart';
 import 'package:tanyadokter_pasien/features/category_list/data/category_repository.dart';
 import 'package:tanyadokter_pasien/features/category_list/views/widget/doctor_category_card.dart';
-import 'package:tanyadokter_pasien/features/doctor/data/doctor_repository.dart';
-import 'package:tanyadokter_pasien/features/doctor/views/ui/doctor_list.dart';
+import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_repository.dart';
+import 'package:tanyadokter_pasien/features/doctor_list/views/ui/doctor_list.dart';
 
 class CategoryScreen extends StatefulWidget {
   static const routeName = '/category';
@@ -36,6 +36,16 @@ class _CategoryScreenState extends State<CategoryScreen> {
           create: (context) =>
               CategoryBloc(CategoryRepository())..add(FetchCategory()),
           child: Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: const Text(
+                'Konsultasi',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                ),
+              ),
+            ),
             body: BlocBuilder<CategoryBloc, CategoryState>(
               builder: (context, state) {
                 if (state is CategoryLoading) {
@@ -46,32 +56,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         horizontal: 12.0, vertical: 8.0),
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 40.0,
-                          child: TextField(
-                            controller: _searchController,
-                            decoration: InputDecoration(
-                              hintText: 'Cari dokter',
-                              hintStyle:
-                                  TextStyle(fontSize: 13.0, color: Colors.grey),
-                              prefixIcon: const Icon(Icons.search_rounded),
-                              suffixIcon: IconButton(
-                                icon: const Icon(Icons.clear_rounded),
-                                onPressed: () {
-                                  _searchController.clear();
-                                },
-                              ),
-                              border: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: Colors.grey),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(30.0))),
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 24.0),
                         Expanded(
                           child: ListView.builder(
                             itemCount: state.category.length,

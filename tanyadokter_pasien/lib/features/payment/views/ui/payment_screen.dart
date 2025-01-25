@@ -32,6 +32,7 @@ class PaymentScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
+              Navigator.of(context).pop();
             },
             icon: const Icon(Icons.arrow_back_rounded),
           ),

@@ -1,4 +1,4 @@
-import 'package:tanyadokter_pasien/features/doctor/data/doctor_model.dart';
+import 'package:tanyadokter_pasien/features/doctor_list/data/doctor_model.dart';
 
 class DoctorRepository {
   static List<DoctorModel> doctor = [
