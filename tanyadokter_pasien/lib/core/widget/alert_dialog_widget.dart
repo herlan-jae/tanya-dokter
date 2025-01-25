@@ -1,12 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:tanyadokter_pasien/core/constant/assets_manager.dart';
 
 class AlertDialogSuccess extends StatelessWidget {
   final String label;
+  final Function function;
 
   const AlertDialogSuccess({
     super.key,
     required this.label,
+    required this.function,
   });
 
   @override
@@ -35,7 +39,7 @@ class AlertDialogSuccess extends StatelessWidget {
             SizedBox(height: 12.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                function();
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(220.0, 30.0),
@@ -53,10 +57,12 @@ class AlertDialogSuccess extends StatelessWidget {
 
 class AlertDialogFailed extends StatelessWidget {
   final String label;
+  final Function function;
 
   const AlertDialogFailed({
     super.key,
     required this.label,
+    required this.function,
   });
 
   @override
@@ -85,7 +91,7 @@ class AlertDialogFailed extends StatelessWidget {
             SizedBox(height: 12.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                function();
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(220.0, 30.0),

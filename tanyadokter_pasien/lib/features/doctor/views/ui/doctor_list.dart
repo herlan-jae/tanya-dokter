@@ -47,8 +47,11 @@ class DoctorListScreen extends StatelessWidget {
     } else {
       showDialog(
         context: context,
-        builder: (context) =>
-            AlertDialogFailed(label: 'Maaf, dokter sedang tidak aktif'),
+        builder: (context) => AlertDialogFailed(
+            label: 'Maaf, dokter sedang tidak aktif',
+            function: () {
+              Navigator.of(context).pop();
+            }),
       );
     }
   }

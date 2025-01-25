@@ -87,6 +87,7 @@ flutter:
   # example:
   assets:
     - assets/images/
+    - assets/images/doctor_images/
 
   fonts:
     - family: Montserrat

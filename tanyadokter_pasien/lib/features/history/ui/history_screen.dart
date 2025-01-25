@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:tanyadokter_pasien/features/history/widget/consultation_card_widget.dart';
 
 class HistoryScreen extends StatelessWidget {
-  static const routeName = '/HistoryScreen';
+  static const routeName = '/history';
   const HistoryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Riwayat Konsultasi',
           style: TextStyle(

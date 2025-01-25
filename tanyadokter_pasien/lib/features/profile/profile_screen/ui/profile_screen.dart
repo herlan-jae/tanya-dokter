@@ -4,8 +4,8 @@ import 'package:tanyadokter_pasien/app/session_helper.dart';
 import 'package:tanyadokter_pasien/core/widget/loading_widget.dart';
 import 'package:tanyadokter_pasien/features/auth/login/bloc/login_bloc.dart';
 import 'package:tanyadokter_pasien/features/auth/login/bloc/login_event.dart';
-import 'package:tanyadokter_pasien/features/profile/widget/logout_dialog.dart';
-import 'package:tanyadokter_pasien/features/profile/widget/profile_list_tile.dart';
+import 'package:tanyadokter_pasien/features/profile/profile_screen/widget/logout_dialog.dart';
+import 'package:tanyadokter_pasien/features/profile/profile_screen/widget/profile_list_tile.dart';
 
 class ProfileScreen extends StatelessWidget {
   static const routeName = '/profile';
@@ -21,6 +21,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Profil',
           style: TextStyle(
@@ -70,7 +71,7 @@ class ProfileScreen extends StatelessWidget {
                             child: CircleAvatar(
                               radius: 40,
                               backgroundImage: NetworkImage(
-                                'https://cdn.pixabay.com/photo/2024/09/03/15/21/ai-generated-9019520_1280.png',
+                                'https://cdn.pixabay.com/photo/2018/04/27/03/50/portrait-3353699_1280.jpg',
                               ),
                             ),
                           ),
@@ -117,7 +118,7 @@ class ProfileScreen extends StatelessWidget {
                       icon: Icons.content_paste_search_rounded,
                       title: 'Riwayat konsultasi',
                       onTap: () {
-                        Navigator.of(context).pushNamed('/ProfileSettings');
+                        Navigator.of(context).pushNamed('/history');
                       },
                     ),
                     ProfileListTile(
@@ -125,7 +126,7 @@ class ProfileScreen extends StatelessWidget {
                       icon: Icons.info_rounded,
                       title: 'Tentang aplikasi',
                       onTap: () {
-                        Navigator.of(context).pushNamed('/AboutScreen');
+                        Navigator.of(context).pushNamed('/about');
                       },
                     ),
                   ],

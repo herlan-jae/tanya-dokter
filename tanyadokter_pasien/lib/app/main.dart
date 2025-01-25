@@ -28,11 +28,11 @@ import 'package:tanyadokter_pasien/features/history/ui/doctors_prescription.dart
 import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
 import 'package:tanyadokter_pasien/features/payment/bloc/payment_bloc.dart';
-import 'package:tanyadokter_pasien/features/profile/ui/about_application.dart';
-import 'package:tanyadokter_pasien/features/profile/ui/delete_profile.dart';
-import 'package:tanyadokter_pasien/features/edit_profile/ui/edit_profile.dart';
-import 'package:tanyadokter_pasien/features/profile/ui/profile_screen.dart';
-import 'package:tanyadokter_pasien/features/profile_settings/ui/profile_settings_screen.dart';
+import 'package:tanyadokter_pasien/features/profile/profile_screen/ui/about_screen.dart';
+import 'package:tanyadokter_pasien/features/profile/delete_profile/ui/delete_profile.dart';
+import 'package:tanyadokter_pasien/features/profile/edit_profile/ui/edit_profile.dart';
+import 'package:tanyadokter_pasien/features/profile/profile_screen/ui/profile_screen.dart';
+import 'package:tanyadokter_pasien/features/profile/profile_settings/ui/profile_settings_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -114,9 +114,9 @@ class MyApp extends StatelessWidget {
             '/payment-confirm': (context) => PaymentConfirmScreen(),
             '/profile-settings': (context) => ProfileSettingsScreen(),
             '/edit': (context) => EditProfileScreen(),
-            DeleteProfileScreen.routeName: (context) => DeleteProfileScreen(),
-            AboutScreen.routeName: (context) => AboutScreen(),
-            HistoryScreen.routeName: (context) => HistoryScreen(),
+            '/delete': (context) => DeleteProfileScreen(),
+            '/about': (context) => AboutScreen(),
+            "/history": (context) => HistoryScreen(),
             PrescriptionScreen.routeName: (context) => PrescriptionScreen(),
           },
         ),

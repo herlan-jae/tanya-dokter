@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tanyadokter_pasien/features/profile/ui/profile_screen.dart';
+import 'package:tanyadokter_pasien/features/profile/profile_screen/ui/profile_screen.dart';
 import 'package:tanyadokter_pasien/features/category_list/views/ui/category_screen.dart';
 import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
 import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';

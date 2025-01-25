@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tanyadokter_pasien/app/session_helper.dart';
 import 'package:tanyadokter_pasien/core/widget/loading_widget.dart';
-import 'package:tanyadokter_pasien/features/profile_settings/widget/profile_settings_list_tile.dart';
+import 'package:tanyadokter_pasien/features/profile/profile_settings/widget/profile_settings_list_tile.dart';
 
 class ProfileSettingsScreen extends StatelessWidget {
   static const routeName = '/profile-settings';
@@ -66,7 +66,7 @@ class ProfileSettingsScreen extends StatelessWidget {
                             child: CircleAvatar(
                               radius: 40,
                               backgroundImage: NetworkImage(
-                                'https://cdn.pixabay.com/photo/2024/09/03/15/21/ai-generated-9019520_1280.png',
+                                'https://cdn.pixabay.com/photo/2018/04/27/03/50/portrait-3353699_1280.jpg',
                               ),
                             ),
                           ),
@@ -111,7 +111,7 @@ class ProfileSettingsScreen extends StatelessWidget {
                       icon: Icons.delete_rounded,
                       title: 'Hapus akun',
                       onTap: () {
-                        Navigator.of(context).pushNamed('/DeleteProfile');
+                        Navigator.of(context).pushNamed('/delete');
                       },
                     ),
                   ],

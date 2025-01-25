@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     const SizedBox(height: 12.0),
                     Text(
-                      'Halo, dr.${snapshot.data}!',
+                      'Halo, ${snapshot.data}!',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
