@@ -110,22 +110,21 @@ class _LoginScreenState extends State<LoginScreen> {
                               .requestFocus(passwordFocusNode),
                         ),
                         const SizedBox(height: 12.0),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Password',
-                                style: AppConstant.labelStyle),
-                            InkWell(
-                              onTap: () {},
-                              child: const Text(
-                                'Lupa Password?',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 12.0,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ),
+                            Text('Password', style: AppConstant.labelStyle),
+                            // InkWell(
+                            //   onTap: () {},
+                            //   child: const Text(
+                            //     'Lupa Password?',
+                            //     style: TextStyle(
+                            //       fontWeight: FontWeight.w400,
+                            //       fontSize: 12.0,
+                            //       color: Colors.blue,
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                         const SizedBox(height: 8.0),

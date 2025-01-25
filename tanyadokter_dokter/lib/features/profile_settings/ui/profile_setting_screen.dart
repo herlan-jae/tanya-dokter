@@ -118,13 +118,6 @@ class ProfileSettingScreen extends StatelessWidget {
                         Navigator.of(context).pushNamed('/edit');
                       },
                     ),
-                    ProfileSettingsListTile(
-                      icon: Icons.delete_rounded,
-                      title: 'Hapus akun',
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/DeleteProfile');
-                      },
-                    ),
                   ],
                 ),
               ),
