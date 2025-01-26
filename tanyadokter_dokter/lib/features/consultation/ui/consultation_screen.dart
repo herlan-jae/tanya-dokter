@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tanyadokter_dokter/features/consultation/ui/connecting_screen.dart';
 import 'package:tanyadokter_dokter/features/consultation/widget/queue_card.dart';
 
 class ConsultationScreen extends StatelessWidget {
@@ -19,15 +20,26 @@ class ConsultationScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: const SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+          padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              QueueCard(name: 'Lorenzo Hamza', gender: 'Pria'),
-              QueueCard(name: 'Yusuf Abdul Wahid', gender: 'Pria'),
-              QueueCard(name: 'Putri Kusuma', gender: 'Wanita'),
+              QueueCard(
+                name: 'Lorenzo Hamza',
+                gender: 'Pria',
+                function: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ConnectingScreen(
+                        name: "Lorenzo Hamza",
+                      ),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),

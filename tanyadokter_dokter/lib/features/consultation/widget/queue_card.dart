@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'package:tanyadokter_dokter/constant/alert_dialog_widget.dart';
+
 class QueueCard extends StatelessWidget {
   final String name;
   final String gender;
+  final Function function;
 
   const QueueCard({
     super.key,
     required this.name,
     required this.gender,
+    required this.function,
   });
 
   @override
@@ -53,8 +57,8 @@ class QueueCard extends StatelessWidget {
                     ),
                     child: const CircleAvatar(
                       radius: 24,
-                      backgroundImage:
-                          NetworkImage('https://via.placeholder.com/150'),
+                      backgroundImage: NetworkImage(
+                          'https://cdn.pixabay.com/photo/2018/04/27/03/50/portrait-3353699_1280.jpg'),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -86,7 +90,7 @@ class QueueCard extends StatelessWidget {
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/ConnectingScreen');
+                        function();
                       },
                       icon: const Icon(
                         Icons.chat,
@@ -114,7 +118,17 @@ class QueueCard extends StatelessWidget {
                   const SizedBox(width: 12.0),
                   Expanded(
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialogSuccess(
+                            label: "Konsultasi berhasil ditunda",
+                            function: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        );
+                      },
                       icon: const Icon(
                         Icons.hourglass_top_rounded,
                         size: 12.0,

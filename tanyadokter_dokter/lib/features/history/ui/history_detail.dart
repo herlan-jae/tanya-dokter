@@ -52,7 +52,8 @@ class HistoryDetail extends StatelessWidget {
                             child: const CircleAvatar(
                               radius: 36,
                               backgroundImage: NetworkImage(
-                                  'https://via.placeholder.com/150'),
+                                'https://cdn.pixabay.com/photo/2018/04/27/03/50/portrait-3353699_1280.jpg',
+                              ),
                             ),
                           ),
                         ],

@@ -55,8 +55,8 @@ class HistoryCard extends StatelessWidget {
                     ),
                     child: const CircleAvatar(
                       radius: 24,
-                      backgroundImage:
-                          NetworkImage('https://via.placeholder.com/150'),
+                      backgroundImage: NetworkImage(
+                          'https://cdn.pixabay.com/photo/2018/04/27/03/50/portrait-3353699_1280.jpg'),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -103,7 +103,11 @@ class HistoryCard extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).pushNamed('/history-detail');
                       },
-                      icon: const Icon(Icons.history, size: 15.0),
+                      icon: const Icon(
+                        Icons.history,
+                        size: 15.0,
+                        color: Colors.white,
+                      ),
                       label: const Text(
                         'Lihat Riwayat',
                         style: TextStyle(
