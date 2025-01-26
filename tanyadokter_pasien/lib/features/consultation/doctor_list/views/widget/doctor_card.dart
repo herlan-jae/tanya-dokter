@@ -76,6 +76,8 @@ class DoctorCard extends StatelessWidget {
                         fontSize: 14.0,
                         fontWeight: FontWeight.bold,
                       ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                     SizedBox(height: 4.0),
                     Text(

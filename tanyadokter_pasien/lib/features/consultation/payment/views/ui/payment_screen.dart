@@ -133,16 +133,14 @@ class PaymentScreen extends StatelessWidget {
                                   Text(
                                     'Harga Total',
                                     style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Rp. $price',
                                     style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -195,10 +193,9 @@ class PaymentScreen extends StatelessWidget {
                                             context.read<PaymentBloc>().add(
                                                   SelectPaymentMethod(
                                                     method.id,
-                                                    method.paymentName,
+                                                    option,
                                                   ),
                                                 );
-                                            Navigator.of(context).pop();
                                           },
                                         ),
                                       );
@@ -221,7 +218,7 @@ class PaymentScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: Text(
-                              'Metode pembayaran yang dipilih: ${state.paymentOptions}',
+                              'Metode pembayaran yang dipilih: ${state.selectedOption}',
                               style: TextStyle(
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.bold,
@@ -236,32 +233,36 @@ class PaymentScreen extends StatelessWidget {
             );
           },
         ),
-        bottomNavigationBar: BottomAppBar(
-          height: 120,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (context.read<PaymentBloc>().state is PaymentMethodSelected)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    'Metode yang dipilih: ${(context.read<PaymentBloc>().state as PaymentMethodSelected).methodName}',
-                    style: TextStyle(
-                      fontSize: 12.0,
-                      fontWeight: FontWeight.bold,
+        bottomNavigationBar: BlocBuilder<PaymentBloc, PaymentState>(
+          builder: (context, state) {
+            return BottomAppBar(
+              height: 120,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // if (state is PaymentMethodSelected)
+                  //   Padding(
+                  //     padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  //     child: Text(
+                  //       'Metode yang dipilih: ${state.selectedOption}',
+                  //       style: TextStyle(
+                  //         fontSize: 12.0,
+                  //         fontWeight: FontWeight.bold,
+                  //       ),
+                  //     ),
+                  //   ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      elevation: 0.0,
+                      backgroundColor: Color(0xFFDDF2FF),
+                      foregroundColor: Color(0xFF116487),
+                      minimumSize: Size(370.0, 30.0),
                     ),
-                  ),
-                ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 0.0,
-                  backgroundColor: Color(0xFFDDF2FF),
-                  foregroundColor: Color(0xFF116487),
-                  minimumSize: Size(370.0, 30.0),
-                ),
-                onPressed:
-                    context.read<PaymentBloc>().state is PaymentMethodSelected
+                    onPressed: state is PaymentMethodSelected
                         ? () {
                             Navigator.push(
                               context,
@@ -276,16 +277,21 @@ class PaymentScreen extends StatelessWidget {
                             );
                           }
                         : null,
-                child: Text(
-                  'Buat Transaksi',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.bold,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 14.0),
+                      child: Text(
+                        'Buat Transaksi',
+                        style: TextStyle(
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
