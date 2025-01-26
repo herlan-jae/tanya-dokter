@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tanyadokter_dokter/features/consultation/ui/consultation_screen.dart';
 import 'package:tanyadokter_dokter/features/home/ui/home_screen.dart';
 import 'package:tanyadokter_dokter/features/history/ui/history_screen.dart';
-import 'package:tanyadokter_dokter/features/profile/ui/profile_screen.dart';
+import 'package:tanyadokter_dokter/features/profile/profile_screens/ui/profile_screen.dart';
 
 class RootScreen extends StatefulWidget {
   static const routeName = '/root';
