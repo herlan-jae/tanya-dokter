@@ -65,7 +65,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: state.error,
                   function: () {
                     Navigator.of(context).pop();
-                    Navigator.of(context).pop();
                   },
                 ),
               );

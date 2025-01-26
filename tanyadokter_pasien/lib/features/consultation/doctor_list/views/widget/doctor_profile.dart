@@ -98,7 +98,7 @@ class ShowDoctorProfile extends StatelessWidget {
                     child: Text(
                       'Kembali',
                       style: TextStyle(
-                        fontSize: 12.0,
+                        fontSize: 11.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -114,15 +114,18 @@ class ShowDoctorProfile extends StatelessWidget {
                       minimumSize: Size(142.0, 30.0),
                     ),
                     onPressed: () => paymentFunction(),
-                    child: Text(
-                      'Konsultasi',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                        fontWeight: FontWeight.bold,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'Konsultasi',
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ],

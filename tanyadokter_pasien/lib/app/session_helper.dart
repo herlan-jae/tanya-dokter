@@ -3,8 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SessionHelper {
   static Future<void> saveUserSession(Map<String, dynamic> userData) async {
     final prefs = await SharedPreferences.getInstance();
-
-    prefs.setString("token", userData["access_token"] ?? "");
+    prefs.setString(
+        "token",
+        userData["access_token"] != null
+            ? "Bearer ${userData['access_token']}"
+            : "");
     prefs.setString("user_id", userData["id"]?.toString() ?? "");
     prefs.setString("email", userData["email"] ?? "");
     prefs.setString("user_data", userData["fullname"] ?? "");

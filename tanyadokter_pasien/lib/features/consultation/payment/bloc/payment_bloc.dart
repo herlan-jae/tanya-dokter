@@ -8,9 +8,9 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     on<SelectPaymentMethod>((event, emit) {
       final method =
           paymentMethod.firstWhere((method) => method.id == event.methodId);
-      print('Selected method: ${event.methodName}');
-      emit(PaymentMethodSelected(
-          event.methodId, method.paymentOptions, event.methodName));
+    emit(PaymentMethodSelected(
+          event.methodId, method.paymentOptions, event.selectedOption));
+
     });
 
     on<ConfirmPayment>(

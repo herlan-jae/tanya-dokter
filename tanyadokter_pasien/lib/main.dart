@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tanyadokter_pasien/app/root_screen.dart';
-import 'package:tanyadokter_pasien/app/session_helper.dart';
 import 'package:tanyadokter_pasien/core/constant/app_theme.dart';
 import 'package:tanyadokter_pasien/features/auth/email_verification/bloc/email_verification_bloc.dart';
 import 'package:tanyadokter_pasien/features/auth/email_verification/data/email_verification_repository.dart';
@@ -19,36 +18,31 @@ import 'package:tanyadokter_pasien/features/auth/reset_password/data/reset_passw
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/forgot_password_screen.dart';
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/pin_verification_screen.dart';
 import 'package:tanyadokter_pasien/features/auth/reset_password/ui/reset_password_screen.dart';
+import 'package:tanyadokter_pasien/features/consultation/category_list/views/ui/category_screen.dart';
 import 'package:tanyadokter_pasien/features/consultation/chat/bloc/chat_bloc.dart';
 import 'package:tanyadokter_pasien/features/consultation/chat/data/chat_repository.dart';
-import 'package:tanyadokter_pasien/features/consultation/category_list/views/ui/category_screen.dart';
-import 'package:tanyadokter_pasien/features/history/ui/prescription_screen.dart';
-import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
-import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
 import 'package:tanyadokter_pasien/features/consultation/payment/bloc/payment_bloc.dart';
-import 'package:tanyadokter_pasien/features/profile/profile_screen/ui/about_screen.dart';
+import 'package:tanyadokter_pasien/features/history/ui/history_screen.dart';
+import 'package:tanyadokter_pasien/features/history/ui/prescription_screen.dart';
+import 'package:tanyadokter_pasien/features/home/ui/home_screen.dart';
 import 'package:tanyadokter_pasien/features/profile/delete_profile/ui/delete_profile.dart';
 import 'package:tanyadokter_pasien/features/profile/edit_profile/ui/edit_profile.dart';
+import 'package:tanyadokter_pasien/features/profile/profile_screen/ui/about_screen.dart';
 import 'package:tanyadokter_pasien/features/profile/profile_screen/ui/profile_screen.dart';
 import 'package:tanyadokter_pasien/features/profile/profile_settings/ui/profile_settings_screen.dart';
+import 'package:tanyadokter_pasien/splash_view.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final session = await SessionHelper.getUserSession();
 
   runApp(
-    MyApp(
-      isLoggedIn: session["token"] != null,
-    ),
+    MyApp(),
   );
 }
 
 class MyApp extends StatelessWidget {
-  final bool isLoggedIn;
-
   const MyApp({
     super.key,
-    required this.isLoggedIn,
   });
 
   @override
@@ -92,10 +86,11 @@ class MyApp extends StatelessWidget {
           title: 'TanyaDokter - Pasien',
           debugShowCheckedModeBanner: false,
           theme: AppTheme.theme(context),
-          home: const LoginScreen(),
-          initialRoute: isLoggedIn ? '/root' : '/login',
+          // home: const RootScreen(),
+          initialRoute: '/splash',
           routes: {
             '/root': (context) => const RootScreen(),
+            '/splash': (context) => const SplashView(),
             '/login': (context) => LoginScreen(),
             '/register': (context) => RegisterScreen(),
             '/forgot-password': (context) => ForgotPasswordScreen(),

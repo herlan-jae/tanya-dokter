@@ -2,9 +2,9 @@ abstract class PaymentEvent {}
 
 class SelectPaymentMethod extends PaymentEvent {
   final String methodId;
-  final String methodName;
+  final String selectedOption;
 
-  SelectPaymentMethod(this.methodId, this.methodName);
+  SelectPaymentMethod(this.methodId, this.selectedOption);
 }
 
 class ConfirmPayment extends PaymentEvent {}
