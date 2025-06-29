@@ -21,7 +21,7 @@ class _SplashViewState extends State<SplashView> {
     });
   }
 
-  _init() async {
+  Future<void> _init() async {
     initializeDateFormatting();
     final session = await SessionHelper.getUserSession();
     bool isLoggedIn = session["access_token"] != "";

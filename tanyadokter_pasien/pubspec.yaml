@@ -37,7 +37,7 @@ dependencies:
   firebase_core: ^3.6.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.6
+  flutter_bloc: ^9.1.1
   flutter_iconly: ^1.0.2
   flutter_launcher_icons: ^0.14.3
   flutter_native_splash: ^2.4.3
@@ -57,7 +57,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^5.0.0
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
 
